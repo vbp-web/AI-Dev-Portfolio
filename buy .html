@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Method</title>
+  <link rel="stylesheet" href="buy.css" />
+</head>
+
+<body>
+
+  <div class="payment-form">
+    <h2>Select Payment Method</h2>
+    <p class="total">Total Amount: ₹<span id="totalAmount">0</span></p>
+
+    <form id="paymentForm">
+      <div class="option">
+        <input type="radio" id="upi" name="payment" value="UPI" required>
+        <label for="upi">📱 UPI</label>
+      </div>
+      <div class="option">
+        <input type="radio" id="credit" name="payment" value="Credit Card">
+        <label for="credit">💳 Credit Card</label>
+      </div>
+      <div class="option">
+        <input type="radio" id="debit" name="payment" value="Debit Card">
+        <label for="debit">🏦 Debit Card</label>
+      </div>
+      <div class="option">
+        <input type="radio" id="other" name="payment" value="Other">
+        <label for="other">🧾 Other</label>
+      </div>
+
+      <div id="extraFields" class="extra-fields"></div>
+
+      <button type="submit" class="submit-btn">Proceed</button>
+      <p id="successMessage" class="success-msg">✅ Payment Successful! Redirecting...</p>
+    </form>
+  </div>
+
+  <script>
+    const totalSpan = document.getElementById("totalAmount");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const total = cart.reduce((sum, item) => sum + Number(item.price), 0);
+    totalSpan.textContent = total;
+
+    const paymentForm = document.getElementById("paymentForm");
+    const extraFields = document.getElementById("extraFields");
+    const successMessage = document.getElementById("successMessage");
+
+    paymentForm.addEventListener("change", (e) => {
+      const value = document.querySelector('input[name="payment"]:checked').value;
+      let html = "";
+
+      if (value === "Credit Card" || value === "Debit Card") {
+        html = `
+          <input type="text" placeholder="Card Number" required />
+          <input type="text" placeholder="Card Holder Name" required />
+          <input type="text" placeholder="Expiry (MM/YY)" required />
+          <input type="text" placeholder="CVV" required />
+        `;
+      } else {
+        html = `
+    <label>Select Bank:</label>
+    <select required>
+      <option value="">--Select Bank--</option>
+      <option value="sbi">State Bank of India</option>
+      <option value="hdfc">HDFC Bank</option>
+      <option value="icici">ICICI Bank</option>
+      <option value="axis">Axis Bank</option>
+      <option value="kotak">Kotak Mahindra</option>
+    </select>
+    <input type="text" placeholder="Registered Mobile Number" required />
+  `;
+      }
+
+
+      extraFields.innerHTML = html;
+    });
+
+    paymentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      successMessage.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "success.html";
+      }, 2000);
+    });
+  </script>
+
+</body>
+
+</html>

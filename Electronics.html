@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simple E-Commerce</title>
+    <link rel="stylesheet" href="electronics.css">
+</head>
+
+<body>
+    <header>
+        <h1>My Shop</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="02.html">Contact</a></li>
+                <li><a href="01.html">Login</a></li> <!-- Add this line -->
+            </ul>
+        </nav>
+
+    </header>
+
+    <main>
+        <div class="slider">
+            <div class="slides">
+                <img src="maxresdefault.jpg" alt="Slide 1">
+                <img src="images.jpg" alt="Slide 2">
+                <img src="images (1).jpg" alt="Slide 3">
+            </div>
+        </div>
+        <!-- Place this inside <body> -->
+<section class="featured-products">
+  <h2 style="text-align:center; margin-top:40px;">Featured Products</h2>
+  <div class="product-grid">
+
+    <!-- 👇 Your Product Card Goes Here -->
+    <div class="product-card" 
+         data-name="Product 1" 
+         data-price="1999" 
+         data-image="images.jpg" 
+         data-description="This is Product 1 - amazing features!">
+      <img   height="300px" width="150px"    src="images.jpg" alt="Product 1" />
+      <h3>Product 1</h3>
+      <p>₹1999</p>
+    </div>
+
+    <div class="product-card" 
+         data-name="Product 2" 
+         data-price="2499" 
+         data-image="images/product2.jpg" 
+         data-description="This is Product 2 - high quality and durable.">
+      <img src="images/product2.jpg" alt="Product 2" />
+      <h3>Product 2</h3>
+      <p>₹2499</p>
+    </div>
+
+    <!-- Add more product cards like above -->
+
+  </div>
+</section>
+
+        <script>
+          
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("click", function (e) {
+      const card = e.target.closest(".product-card");
+      if (card) {
+        const name = card.getAttribute("data-name");
+        const price = card.getAttribute("data-price");
+        const image = card.getAttribute("data-image");
+        const description = card.getAttribute("data-description");
+
+        const product = { name, price, image, description };
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        window.location.href = "product-details.html";
+      }
+    });
+  });
+
+
+        </script>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My Shop. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-green-50 text-gray-800 font-sans">
+  <!-- Header -->
+  <header class="bg-green-700 text-white py-5 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+      <h1 class="text-3xl font-bold text-center md:text-left mb-4 md:mb-0">🍛 Main Menu</h1>
+
+      <!-- Search, Filter & Add to Cart Controls -->
+      <div class="flex gap-4 items-center w-full md:w-auto">
+        <input type="text" id="searchInput" placeholder="Search for food..."
+          class="w-full md:w-64 p-3 border border-gray-300 rounded shadow focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-800 placeholder-gray-500"
+          onkeyup="filterCards()" />
+
+        <select onchange="filterSection(this.value)"
+          class="p-3 rounded border border-gray-300 text-gray-800 shadow focus:outline-none focus:ring-2 focus:ring-green-400 bg-white">
+          <option value="all">🍽️ Show All</option>
+          <option value="paneer">🧀 Paneer</option>
+          <option value="veg">🥦 Veg</option>
+          <option value="roti">🫓 Roti</option>
+          <option value="rice">🍚 Rice & Dal</option>
+        </select>
+
+        <!-- Add to Cart Button -->
+        <a href="cart.html">
+          <button
+            class="bg-yellow-400 hover:bg-yellow-500 text-green-900 font-semibold px-4 py-2 rounded shadow transition">
+            🛒 View Cart
+          </button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Paneer Section -->
+  <section id="paneer" class="menu-section pt-16 px-6" data-category="paneer">
+
+    <h2 class="text-2xl font-bold text-green-700 mb-6">🧀 Paneer Dishes</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="paneerCards">
+      <!-- Example Paneer Item -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="Paneer Bhurji.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Paneer Bhurji</h3>
+          <p class="text-sm text-gray-600 mb-2">Rich creamy tomato-based gravy with soft paneer cubes.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹120</span>
+            <button onclick="addToCartAndRedirect('1', 'Paneer Bhurji', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- Add more paneer items here -->
+      <!-- 1. Paneer Butter Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="Paneer Butter Masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Paneer Butter Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Rich creamy tomato-based gravy with soft paneer cubes.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹120</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+          </div>
+          <!-- Add to Cart Button -->
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded"
+            onclick="addToCart('2', 'Paneer Butter Masala', 180, 'paneer-bhurji.jpg')">
+            Add to Cart
+          </button>
+
+        </div>
+      </div>
+
+
+      <!-- 2. Kadai Paneer -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="kadai paneer.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Kadai Paneer</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy paneer cooked with capsicum and onions in thick gravy.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹110</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('3', 'Kadai Paneer', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Palak Paneer -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="palak paneer.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Palak Paneer</h3>
+          <p class="text-sm text-gray-600 mb-2">Cubes of paneer in creamy spinach gravy, rich in flavor.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹105</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('4', 'Palak Paneer', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Matar Paneer -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="matar-paneer.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Matar Paneer</h3>
+          <p class="text-sm text-gray-600 mb-2">Delicious paneer and peas curry in onion-tomato masala.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹100</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('5', 'Matar Paneer', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Shahi Paneer -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="shahi-paneer.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Shahi Paneer</h3>
+          <p class="text-sm text-gray-600 mb-2">Royal-style rich creamy gravy with soft paneer cubes.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹130</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('6', 'Shahi Paneer', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Paneer Tikka Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="paneer-tikka-masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Paneer Tikka Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Grilled paneer in spicy tomato-based gravy with cream.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹125</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('7', 'Paneer Tikka Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Paneer Lababdar -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="paneer-lababdar.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Paneer Lababdar</h3>
+          <p class="text-sm text-gray-600 mb-2">Restaurant-style rich paneer curry with creamy texture.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹130</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('8', 'Paneer Lababdar', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Tawa Paneer Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="tawa-paneer.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Tawa Paneer Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy paneer tossed on tawa with peppers & onion.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹115</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('9', 'Tawa Paneer Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Paneer Kofta Curry -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="paneer-kofta.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Tawa Paneer Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Soft paneer koftas in creamy tomato-cashew gravy.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹145</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+
+            <button
+              onclick="addToCartAndRedirect('10', 'Tawa Paneer Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Cheese Butter Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="cheese-butter-masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Cheese Butter Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Rich tomato & butter gravy with grated cheese on top.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹140</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('11', 'Cheese Butter Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Cheese Angara -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="cheese-angara.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Cheese Butter Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy & smoky gravy loaded with cheese & capsicum.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹135</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('12', 'Cheese Butter Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Veg Curries Section -->
+  <section id="veg" class="menu-section pt-16 px-6" data-category="veg">
+
+
+    <h2 class="text-2xl font-bold text-green-700 mb-6">🥦 Veg Curries</h2>
+
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-kolhapuri.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Kolhapuri</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy mixed veg curry from Kolhapur.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹100</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('13', 'Veg Kolhapuri', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+      <!-- Add more veg items here -->
+      <!-- 1. Mix Veg -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="mix-veg.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Mix Veg</h3>
+          <p class="text-sm text-gray-600 mb-2">Seasonal vegetables cooked in spicy masala gravy.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹90</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('14', 'Mix Veg', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Veg Kolhapuri -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg hyderabadi.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Hyderabadi</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy Maharashtrian-style curry with assorted vegetables.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹100</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('15', 'Veg Hyderabadi', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Veg Jaipuri -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-jaipuri.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Jaipuri</h3>
+          <p class="text-sm text-gray-600 mb-2">Royal Rajasthani-style veg curry with a rich taste.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹110</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('16', 'Veg Jaipuri', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Bhindi Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="bhindi-masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Bhindi Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Spicy okra stir-fried with onion and Indian spices.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹90</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('17', 'Bhindi Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Aloo Gobi -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="aloo-gobi.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Aloo Gobi</h3>
+          <p class="text-sm text-gray-600 mb-2">Classic dry curry made with potatoes and cauliflower.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹85</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('18', 'Aloo Gobi', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Baingan Bharta -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="baingan-bharta.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Baingan Bharta</h3>
+          <p class="text-sm text-gray-600 mb-2">Roasted brinjal mash cooked with onions and tomatoes.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹90</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('19', 'Baingan Bharta', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Tinda Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="tinda-masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Tinda Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Indian round gourd cooked in aromatic spicy masala.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹85</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('20', 'Tinda Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Gobi Masala -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="gobi-masala.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Gobi Masala</h3>
+          <p class="text-sm text-gray-600 mb-2">Cauliflower cooked in rich spicy tomato-onion gravy.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹90</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('21', 'Gobi Masala', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Aloo Tamatar -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="aloo-tamatar.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Aloo Tamatar</h3>
+          <p class="text-sm text-gray-600 mb-2">Potatoes simmered in tangy tomato gravy with masala.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹80</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('22', 'Aloo Tamatar', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. veg kadai-->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg kadai.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Kadai</h3>
+          <p class="text-sm text-gray-600 mb-2">Vegetables cooked in spicy green masala & rich herbs.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹110</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('23', '>Veg Kadair', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Veg Diwani Handi -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-diwani-handi.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Diwani Handi</h3>
+          <p class="text-sm text-gray-600 mb-2">Delightful blend of seasonal vegetables in creamy gravy.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹115</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('24', '>Veg Diwani Handi', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Roti Section -->
+  <section id="Roti" class="menu-section pt-16 px-6" data-category="Roti">
+
+    <h2 class="text-2xl font-bold text-green-700 mb-6"> Roti</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="rotiCards">
+
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="roti.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Tandoori Roti</h3>
+          <p class="text-sm text-gray-600 mb-2">Traditional whole wheat flatbread made in tandoor.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹15</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('25', 'Tandoori Roti', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 1. Tandoori Roti -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="tandoori-roti.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Tandoori Roti</h3>
+          <p class="text-sm text-gray-600 mb-2">Clay oven baked whole wheat flatbread.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹20</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('26', 'Tandoori Roti', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Butter Roti -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="butter-roti.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Butter Roti</h3>
+          <p class="text-sm text-gray-600 mb-2">Soft roti brushed with rich butter.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹25</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('27', 'Butter Roti', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Plain Naan -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="plain-naan.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Plain Naan</h3>
+          <p class="text-sm text-gray-600 mb-2">Leavened flatbread cooked in tandoor.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹30</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('28', 'Plain Naan', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Butter Naan -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="butter-naan.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Butter Naan</h3>
+          <p class="text-sm text-gray-600 mb-2">Soft naan topped with butter, served hot.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹35</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('29', 'Butter Naan', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Garlic Naan -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="garlic-naan.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Garlic Naan</h3>
+          <p class="text-sm text-gray-600 mb-2">Fluffy naan with garlic and coriander topping.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹40</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('30', 'Garlic Naan', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Lachha Paratha -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="lachha-paratha.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Lachha Paratha</h3>
+          <p class="text-sm text-gray-600 mb-2">Layered flaky paratha fried on tawa.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹35</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('31', 'Lachha Paratha', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Stuffed Aloo Paratha -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="aloo-paratha.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Aloo Paratha</h3>
+          <p class="text-sm text-gray-600 mb-2">Wheat flatbread stuffed with spicy mashed potato.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹45</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('32', 'Aloo Paratha', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Missi Roti -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="missi-roti.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Missi Roti</h3>
+          <p class="text-sm text-gray-600 mb-2">Punjabi roti made with besan and spices.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹30</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('33', 'Missi Roti', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Plain Paratha -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="plain-paratha.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Plain Paratha</h3>
+          <p class="text-sm text-gray-600 mb-2">Simple and soft paratha cooked on tawa.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹25</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('34', 'Plain Paratha', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Cheese Naan -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="cheese-naan.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Cheese Naan</h3>
+          <p class="text-sm text-gray-600 mb-2">Delicious naan stuffed with melted cheese.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹50</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('35', 'Cheese Naan', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Roomali Roti -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="roomali-roti.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Roomali Roti</h3>
+          <p class="text-sm text-gray-600 mb-2">Thin soft roti folded like a handkerchief.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹30</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('36', 'Roomali Roti', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Rice and Dal Section -->
+  <section id="rice-dal" class="menu-section pt-16 px-6" data-category="rice-dal">
+
+    <h2 class="text-2xl font-bold text-green-700 mb-6">🍚 Rice & Dal</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="riceDalCards">
+
+
+      <!-- 1. Jeera Rice -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="jeera-rice.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Jeera Rice</h3>
+          <p class="text-sm text-gray-600 mb-2">Fluffy basmati rice tempered with cumin seeds.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹70</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('37', 'Jeera Rice', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Veg Pulao -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-pulao.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Pulao</h3>
+          <p class="text-sm text-gray-600 mb-2">Fragrant rice with mixed vegetables and mild spices.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹90</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('38', 'Veg Pulao', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Veg Biryani -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-biryani.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Veg Biryani</h3>
+          <p class="text-sm text-gray-600 mb-2">Aromatic rice cooked with vegetables & spices.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹120</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('39', 'Veg Biryani', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Paneer Fried Rice -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="paneer-fried-rice.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Paneer Fried Rice</h3>
+          <p class="text-sm text-gray-600 mb-2">Rice stir-fried with veggies and paneer cubes.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹110</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('40', 'Paneer Fried Rice', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Vegetable Fried Rice -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="veg-fried-rice.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Vegetable Fried Rice</h3>
+          <p class="text-sm text-gray-600 mb-2">Stir-fried rice with crunchy vegetables and soy sauce.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹100</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button
+              onclick="addToCartAndRedirect('41', 'Vegetable Fried Rice', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Dal Tadka -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="dal-tadka.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Dal Tadka</h3>
+          <p class="text-sm text-gray-600 mb-2">Yellow dal tempered with garlic, cumin, and red chili.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹80</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('42', 'Dal Tadka', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Dal Fry -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="dal-fry.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Dal Fry</h3>
+          <p class="text-sm text-gray-600 mb-2">Classic lentils fried in ghee and spices.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹75</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('43', '>Dal Fry', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Dal Makhani -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="dal-makhani.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Dal Makhani</h3>
+          <p class="text-sm text-gray-600 mb-2">Rich black lentils cooked with butter and cream.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹100</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('44', 'Dal Makhani', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Khichdi -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="khichdi.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Khichdi</h3>
+          <p class="text-sm text-gray-600 mb-2">Comforting mix of rice and moong dal, lightly spiced.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹70</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('45', 'Khichdi', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Lemon Rice -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="lemon-rice.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Lemon Rice</h3>
+          <p class="text-sm text-gray-600 mb-2">Tangy and flavorful rice with mustard and curry leaves.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹85</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('46', 'Lemon Rice', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Curd Rice -->
+      <div class="card bg-white rounded-2xl shadow-xl overflow-hidden hover:scale-105 transition duration-500">
+        <img src="curd-rice.jpg" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold text-green-600">Curd Rice</h3>
+          <p class="text-sm text-gray-600 mb-2">Cool and creamy rice mixed with curd and seasoning.</p>
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold">₹65</span>
+            <a href="payment.html">
+              <button class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">Order</button>
+            </a>
+            <button onclick="addToCartAndRedirect('47', 'Curd Rice', 180, 'https://via.placeholder.com/300x200')"
+              class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+              Add to Cart
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <!-- ✅ JavaScript for Add to Cart -->
+  <script>
+    function filterCards() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const title = card.querySelector("h3").textContent.toLowerCase();
+
+      if (title.includes(filter)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+    function addToCartAndRedirect(id, name, price, img) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      // Check if item already in cart
+      const existingItem = cart.find(item => item.id === id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ id, name, price, img, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // ✅ Show success message
+      alert(`${name} added to cart ✅`);
+
+      // ✅ Redirect to cart.html
+      window.location.href = "cart.html";
+    }
+   
+  </script>
+
+<div id="menuContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4"></div>
+
+<script>
+  async function loadMenu() {
+    try {
+      const response = await fetch('http://localhost:5000/api/menu');
+      const data = await response.json();
+
+      const container = document.getElementById('menuContainer');
+      container.innerHTML = '';
+
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-lg shadow-md p-4";
+
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded mb-2" />
+          <h3 class="text-xl font-semibold">${item.name}</h3>
+          <p class="text-gray-600 text-sm">${item.description}</p>
+          <p class="text-green-600 font-bold mt-2">₹${item.price}</p>
+          <button class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add to Cart</button>
+        `;
+
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error('Failed to load menu:', err);
+    }
+  }
+
+  loadMenu();
+</script>
+
+
+</body>
+
+</html>

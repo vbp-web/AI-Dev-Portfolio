@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3D Food Menu Cube</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #f3f4f6;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .cube-container {
+      perspective: 1000px;
+      width: 300px;
+      height: 300px;
+      margin: auto;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: spin 20s infinite linear;
+    }
+
+    .face {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+    }
+
+    .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .front   { transform: rotateY(0deg)    translateZ(150px); }
+    .back    { transform: rotateY(180deg)  translateZ(150px); }
+    .right   { transform: rotateY(90deg)   translateZ(150px); }
+    .left    { transform: rotateY(-90deg)  translateZ(150px); }
+    .top     { transform: rotateX(90deg)   translateZ(150px); }
+    .bottom  { transform: rotateX(-90deg)  translateZ(150px); }
+
+    @keyframes spin {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      25%  { transform: rotateX(90deg) rotateY(0deg); }
+      50%  { transform: rotateX(90deg) rotateY(90deg); }
+      75%  { transform: rotateX(0deg) rotateY(90deg); }
+      100% { transform: rotateX(0deg) rotateY(0deg); }
+    }
+
+    .scene-wrapper {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="bg-orange-600 text-white py-4 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto flex justify-center gap-10 text-lg font-semibold">
+      <a href="nasto.html" class="hover:text-yellow-300">Nasto</a>
+      <a href="mainmenu.html" class="hover:text-yellow-300">Main Menu</a>
+      <a href="dessert.html" class="hover:text-yellow-300">Dessert</a>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="bg-[url('https://source.unsplash.com/1600x600/?food,indian')] bg-cover bg-center h-64 flex items-center justify-center">
+    <h1 class="text-white text-4xl md:text-5xl font-bold backdrop-blur-md px-4 py-2 bg-black/40 rounded-lg">
+      Welcome to Our Food House 🍽️
+    </h1>
+  </header>
+
+  <!-- 3D Cube -->
+  <section class="scene-wrapper">
+    <h2 class="text-3xl font-bold text-orange-600 mb-6 text-center">🍱 Explore Our 3D Food Cube</h2>
+    <div class="cube-container">
+      <div class="cube">
+
+        <!-- Front -->
+        <div class="face front">
+          <a href="nasto.html">
+            <img src="samosa-recipe.jpg" alt="Nasto" />
+          </a>
+        </div>
+
+        <!-- Back -->
+        <div class="face back">
+          <a href="mainmenu.html">
+            <img src="imagesp.webp" alt="Main Menu" />
+          </a>
+        </div>
+
+        <!-- Right -->
+        <div class="face right">
+          <a href="dessert.html">
+            <img src="download (2).jpg" alt="Desserts" />
+          </a>
+        </div>
+
+        <!-- Left -->
+        <div class="face left">
+          <a href="mainmenu.html">
+            <img src="download (1).jpg" alt="Thali" />
+          </a>
+        </div>
+
+        <!-- Top -->
+        <div class="face top">
+          <a href="drinks.html">
+            <img src="https://source.unsplash.com/300x300/?juice" alt="Drinks" />
+          </a>
+        </div>
+
+        <!-- Bottom -->
+        <div class="face bottom">
+          <a href="dessert.html">
+            <img src="download (2).jpg" alt="Rice Items" />
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <div id="menuContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4"></div>
+
+
+<script>
+  async function loadMenu() {
+    try {
+      const response = await fetch("http://localhost:5000/api/menu");
+      const data = await response.json();
+
+      const container = document.getElementById("menuContainer");
+      container.innerHTML = "";
+
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-lg shadow-md p-4";
+
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded mb-2" />
+          <h3 class="text-xl font-semibold">${item.name}</h3>
+          <p class="text-gray-600 text-sm">${item.description}</p>
+          <p class="text-green-600 font-bold mt-2">₹${item.price}</p>
+          <button class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add to Cart</button>
+        `;
+
+        container.appendChild(card);
+      });
+    } catch (err) {
+      console.error("Failed to load menu:", err);
+    }
+  }
+
+  loadMenu();
+</script>
+
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center py-4 mt-12">
+    &copy; 2025 Food House | Designed with ❤️ by You
+  </footer>
+
+</body>
+</html>

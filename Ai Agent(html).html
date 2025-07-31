@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flocke</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevents scrollbars from the canvas */
+        }
+        #ai-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place canvas behind content */
+        }
+        .chat-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background-color: #4f46e5;
+            border-radius: 20px;
+        }
+        #mic-button.listening {
+            background-color: #dc2626; /* Red-600 */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <canvas id="ai-canvas"></canvas>
+
+    <div class="relative flex flex-col h-screen p-3 sm:p-4 md:p-6 lg:p-8">
+        <header class="text-center mb-4">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-400"> Welcome To Flocke</h1>
+            <p class="text-gray-400 mt-1">I'm a visual AI Flocke. Ask me anything.</p>
+        </header>
+
+        <div id="chat-container" class="flex-1 overflow-y-auto space-y-4 p-4 bg-black bg-opacity-30 rounded-xl backdrop-blur-sm">
+            <div class="p-4 rounded-lg bg-indigo-500 bg-opacity-20 self-start max-w-xl">
+                 <p class="font-bold text-indigo-300">AI Flocke</p>
+                 <p>Hello! You can now talk to me.</p>
+             </div>
+        </div>
+
+        <div class="mt-4 flex items-center gap-2 bg-black bg-opacity-30 p-3 rounded-xl backdrop-blur-sm">
+            <input type="text" id="prompt-input" class="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-gray-500" placeholder="Type or click the mic to talk...">
+            <button id="camera-button" class="bg-gray-700 hover:bg-gray-600 transition-colors rounded-lg p-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/><path d="M14 14l-3-3 3-3"/><path d="M20 3h-5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
+            </button>
+            <button id="mic-button" class="bg-gray-700 hover:bg-gray-600 transition-colors rounded-lg p-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+            </button>
+            <button id="send-button" class="bg-indigo-600 hover:bg-indigo-500 transition-colors rounded-lg px-5 py-2.5 font-semibold disabled:bg-gray-500 disabled:cursor-not-allowed">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- THREE.JS 3D Scene Setup ---
+        const scene = new THREE.Scene();
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('ai-canvas'),
+            antialias: true,
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x0a0a0f, 1);
+
+        // --- Cameras ---
+        const cameraFront = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        cameraFront.position.z = 5;
+
+        const cameraSide = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        cameraSide.position.set(7, 2, 0);
+        cameraSide.lookAt(scene.position);
+
+        let activeCamera = cameraFront;
+
+        // --- MODIFIED: Added Touch Support ---
+        const mouse = new THREE.Vector2();
+
+        function updatePointerPosition(x, y) {
+            mouse.x = (x / window.innerWidth) * 2 - 1;
+            mouse.y = -(y / window.innerHeight) * 2 + 1;
+        }
+
+        window.addEventListener('mousemove', (event) => {
+            updatePointerPosition(event.clientX, event.clientY);
+        });
+
+        window.addEventListener('touchmove', (event) => {
+            event.preventDefault(); // Prevent page scrolling
+            if (event.touches.length > 0) {
+                updatePointerPosition(event.touches[0].clientX, event.touches[0].clientY);
+            }
+        }, { passive: false });
+
+        // --- Lighting ---
+        const ambientLight = new THREE.AmbientLight(0x4040ff, 2);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1.5, 100);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+        const pointLight2 = new THREE.PointLight(0x8a2be2, 2, 100);
+        pointLight2.position.set(-5, -5, -2);
+        scene.add(pointLight2);
+
+        // --- Background Starfield ---
+        const starVertices = [];
+        for (let i = 0; i < 10000; i++) {
+            const x = (Math.random() - 0.5) * 2000;
+            const y = (Math.random() - 0.5) * 2000;
+            const z = (Math.random() - 0.5) * 2000;
+            starVertices.push(x, y, z);
+        }
+        const starGeometry = new THREE.BufferGeometry();
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0x555555, size: 0.7 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // --- AI Agent Object ---
+        const agentGroup = new THREE.Group();
+        scene.add(agentGroup);
+
+        // Core
+        const coreGeometry = new THREE.IcosahedronGeometry(1, 3);
+        const coreMaterial = new THREE.MeshStandardMaterial({
+            color: 0x6366f1, metalness: 0.5, roughness: 0.3, emissive: 0x3730a3, emissiveIntensity: 0.5
+        });
+        const core = new THREE.Mesh(coreGeometry, coreMaterial);
+        agentGroup.add(core);
+        
+        // Wireframe overlay
+        const wireframeGeometry = new THREE.IcosahedronGeometry(1.01, 3);
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ color: 0x818cf8, wireframe: true, transparent: true, opacity: 0.2 });
+        const wireframe = new THREE.Mesh(wireframeGeometry, wireframeMaterial);
+        agentGroup.add(wireframe);
+
+        // Orbiting particles
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            const particleGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const particleMaterial = new THREE.MeshStandardMaterial({ color: 0xa5b4fc, metalness: 0.8, roughness: 0.1 });
+            const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 1.8 + Math.random() * 0.5;
+            particle.position.x = Math.cos(angle) * radius;
+            particle.position.z = Math.sin(angle) * radius;
+            particle.position.y = (Math.random() - 0.5) * 2;
+            particles.push({mesh: particle, radius, initialAngle: angle, speed: 0.2 + Math.random() * 0.4});
+            agentGroup.add(particle);
+        }
+
+        // --- Animation Loop ---
+        let clock = new THREE.Clock();
+        let isThinking = false;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+            agentGroup.rotation.y += (mouse.x * 0.5 - agentGroup.rotation.y) * 0.05;
+            agentGroup.rotation.x += (-mouse.y * 0.5 - agentGroup.rotation.x) * 0.05;
+            const thinkingSpeed = isThinking ? 4 : 1;
+            core.rotation.y += 0.005 * thinkingSpeed;
+            wireframe.rotation.y += 0.005 * thinkingSpeed;
+            core.material.emissiveIntensity = isThinking ? 1.5 + Math.sin(elapsedTime * 10) * 0.5 : 0.5;
+            particles.forEach(p => {
+                p.mesh.rotation.y += 0.01;
+                const angle = p.initialAngle + elapsedTime * p.speed * thinkingSpeed * 0.5;
+                p.mesh.position.x = Math.cos(angle) * p.radius;
+                p.mesh.position.z = Math.sin(angle) * p.radius;
+                p.mesh.position.y = Math.sin(elapsedTime * p.speed + p.initialAngle) * 0.7;
+            });
+            renderer.render(scene, activeCamera);
+        }
+        animate();
+
+        // --- Handle Window Resize ---
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            cameraFront.aspect = width / height;
+            cameraFront.updateProjectionMatrix();
+
+            cameraSide.aspect = width / height;
+            cameraSide.updateProjectionMatrix();
+
+            renderer.setSize(width, height);
+        });
+        
+        // --- UI & Chat Logic ---
+        const sendButton = document.getElementById('send-button');
+        const promptInput = document.getElementById('prompt-input');
+        const chatContainer = document.getElementById('chat-container');
+        const cameraButton = document.getElementById('camera-button');
+        const micButton = document.getElementById('mic-button');
+
+        // Switch camera view
+        cameraButton.addEventListener('click', () => {
+            activeCamera = (activeCamera === cameraFront) ? cameraSide : cameraFront;
+        });
+
+        // Function to add a message to the chat
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            const senderP = document.createElement('p');
+            const textP = document.createElement('p');
+
+            senderP.textContent = sender;
+            senderP.className = 'font-bold';
+            textP.innerHTML = text;
+            messageDiv.appendChild(senderP);
+            messageDiv.appendChild(textP);
+
+            if (sender === 'You') {
+                messageDiv.className = 'p-4 rounded-lg bg-gray-700 self-end max-w-xl';
+                senderP.className = 'font-bold text-gray-300';
+            } else if (sender === 'AI Agent') {
+                messageDiv.className = 'p-4 rounded-lg bg-indigo-500 bg-opacity-20 self-start max-w-xl';
+                senderP.className = 'font-bold text-indigo-300';
+            } else { // System messages
+                 messageDiv.className = 'p-4 rounded-lg bg-yellow-500 bg-opacity-20 self-start max-w-xl';
+                 senderP.className = 'font-bold text-yellow-300';
+            }
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Function to call Gemini API
+        async function getGeminiResponse(prompt) {
+            // IMPORTANT: Add your Google AI API key here
+            const apiKey = ""; 
+            if (apiKey === "" || !apiKey) {
+                return "API Key not configured. Please add your Google AI API key in the script.";
+            }
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                const data = await response.json();
+                if (data.candidates && data.candidates.length > 0 && data.candidates[0].content.parts.length > 0) {
+                    let text = data.candidates[0].content.parts[0].text;
+                    // Basic Markdown to HTML conversion for bold text
+                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    return text;
+                } else {
+                    console.error("Invalid API response structure:", data);
+                    return "I'm sorry, I received an unusual response from the server.";
+                }
+            } catch (error) {
+                console.error("Gemini API call failed:", error);
+                return `Sorry, an error occurred. Please check the console for details. Error: ${error.message}`;
+            }
+        }
+
+        // Handle sending a message
+        async function handleSend() {
+            const prompt = promptInput.value.trim();
+            if (!prompt) return;
+            addMessage('You', prompt);
+            promptInput.value = '';
+            sendButton.disabled = true;
+            micButton.disabled = true;
+            isThinking = true;
+            const aiResponse = await getGeminiResponse(prompt);
+            isThinking = false;
+            sendButton.disabled = false;
+            micButton.disabled = false;
+            addMessage('AI Agent', aiResponse);
+            speak(aiResponse); // Speak the response
+            promptInput.focus();
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        promptInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+
+        // --- Speech Recognition (STT) & Synthesis (TTS) ---
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        function stripHtml(html){
+           let tmp = document.createElement("DIV");
+           tmp.innerHTML = html;
+           return tmp.textContent || tmp.innerText || "";
+        }
+
+        function speak(text) {
+            if (!text) return;
+            speechSynthesis.cancel(); // Stop any previous speech
+            const utterance = new SpeechSynthesisUtterance(stripHtml(text));
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            micButton.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                } catch(e) {
+                    console.error("Recognition start error:", e);
+                    addMessage('System', 'Voice recognition could not be started. It might already be active.');
+                }
+            });
+
+            recognition.onstart = () => {
+                micButton.classList.add('listening');
+            };
+
+            recognition.onresult = (event) => {
+                const speechResult = event.results[0][0].transcript;
+                promptInput.value = speechResult;
+                handleSend(); // Automatically send the recognized text
+            };
+
+            recognition.onend = () => {
+                micButton.classList.remove('listening');
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                addMessage('System', `Speech recognition error: ${event.error}`);
+            };
+        } else {
+            console.log('Speech Recognition not supported in this browser.');
+            micButton.style.display = 'none';
+            addMessage('System', 'Voice input is not supported in your browser.');
+        }
+    </script>
+</body>
+</html>

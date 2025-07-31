@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lost Items - Campus Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">🧳 Lost Items</h1>
+    <div id="items" class="grid gap-6"></div>
+  </div>
+
+  <script>
+    // Fetch lost items from backend
+    fetch('http://localhost:5000/api/items')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('items');
+        data.forEach(item => {
+          container.innerHTML += `
+            <div class="bg-white p-4 rounded shadow">
+              <h2 class="text-xl font-semibold">${item.name}</h2>
+              <p><strong>Type:</strong> ${item.type}</p>
+              <p><strong>Location:</strong> ${item.location}</p>
+              <p><strong>Date:</strong> ${item.date.split("T")[0]}</p>
+              <p><strong>Contact:</strong> ${item.contact}</p>
+              <p>${item.description}</p>
+              ${item.image ? `<img src="${item.image}" class="mt-2 max-h-40">` : ""}
+            </div>
+          `;
+        });
+      });
+  </script>
+</body>
+</html>

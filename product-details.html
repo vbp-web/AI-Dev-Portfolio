@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e0eafc);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .product-image img {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .details {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .details h2 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .details p {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .buy-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .buy-btn:hover {
+      background-color: #218838;
+    }
+
+    .back-btn {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .back-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="product-image">
+      <img id="productImage" src="" alt="Product Image" />
+    </div>
+    <div class="details">
+      <h2 id="productName">Product Name</h2>
+      <p id="productDescription">Product Description</p>
+      <p class="price">₹<span id="productPrice">0</span></p>
+      <div class="buttons">
+        <button class="buy-btn" onclick="location.href='buy .html'">Buy Now</button>
+        <button class="back-btn" onclick="history.back()">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+    if (product) {
+      document.getElementById("productImage").src = product.image;
+      document.getElementById("productName").textContent = product.name;
+      document.getElementById("productDescription").textContent = product.description;
+      document.getElementById("productPrice").textContent = product.price;
+    } else {
+      document.querySelector(".container").innerHTML = "<h2>No product selected.</h2>";
+    }
+  </script>
+</body>
+</html>

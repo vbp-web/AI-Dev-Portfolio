@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Report Lost Item</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+  <header class="bg-yellow-500 text-white p-4 text-center text-2xl font-bold">
+    Report Lost Item
+  </header>
+
+  <main class="p-6 max-w-xl mx-auto">
+    <form id="lostItemForm" class="bg-white p-6 rounded shadow space-y-4">
+      <div>
+        <label class="block font-medium mb-1">Item Name</label>
+        <input type="text" id="itemName" class="w-full p-2 border border-gray-300 rounded" required />
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Description</label>
+        <textarea id="itemDesc" class="w-full p-2 border border-gray-300 rounded" required></textarea>
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Location Lost</label>
+        <input type="text" id="itemLocation" class="w-full p-2 border border-gray-300 rounded" required />
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Date Lost</label>
+        <input type="date" id="itemDate" class="w-full p-2 border border-gray-300 rounded" required />
+      </div>
+      <div>
+        <label class="block font-medium mb-1">Upload Image</label>
+        <input type="file" id="itemImage" accept="image/*" class="w-full p-2 border border-gray-300 rounded" />
+      </div>
+      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded shadow">
+        Submit
+      </button>
+    </form>
+  </main>
+
+  <script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const fileInput = document.getElementById("itemImage");
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      const base64Image = reader.result;
+
+      const item = {
+        name: document.getElementById("itemName").value,
+        description: document.getElementById("itemDesc").value,
+        location: document.getElementById("itemLocation").value,
+        date: document.getElementById("itemDate").value,
+        image: base64Image || "", // base64 string
+      };
+
+      const key = window.location.pathname.includes("report") ? "lostItems" : "foundItems";
+      let items = JSON.parse(localStorage.getItem(key)) || [];
+      items.push(item);
+      localStorage.setItem(key, JSON.stringify(items));
+
+      alert(`${key === "lostItems" ? "Lost" : "Found"} item reported successfully!`);
+      window.location.href = "index.html";
+    };
+
+    if (fileInput.files[0]) {
+      reader.readAsDataURL(fileInput.files[0]); // Convert to base64
+    } else {
+      reader.onload(); // No image, just save data
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e2e8f0;
+        }
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .section-title {
+            background: -webkit-linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-white">YourName.</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-slate-300 hover:text-blue-400 transition-colors duration-300">About</a>
+                <a href="#projects" class="text-slate-300 hover:text-blue-400 transition-colors duration-300">Projects</a>
+                <a href="#skills" class="text-slate-300 hover:text-blue-400 transition-colors duration-300">Skills</a>
+                <a href="#contact" class="text-slate-300 hover:text-blue-400 transition-colors duration-300">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content max-w-4xl px-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-4">
+                AI-Powered <span class="section-title">Web Developer</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+                I merge artificial intelligence with modern web technologies to build smart, intuitive, and beautiful websites.
+            </p>
+            <a href="#projects" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                View My Work
+            </a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 py-20">
+        <!-- About Me Section -->
+        <section id="about" class="py-20 scroll-reveal">
+            <h2 class="text-4xl font-bold text-center mb-2 section-title">About Me</h2>
+            <p class="text-center text-slate-400 mb-12">My journey into the world of tech.</p>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3">
+                    <img src="https://placehold.co/400x400/0a0a0a/3b82f6?text=Your\nPhoto" alt="Your Name" class="rounded-full shadow-lg border-4 border-slate-700">
+                </div>
+                <div class="md:w-2/3">
+                    <p class="text-slate-300 text-lg mb-4">
+                        Hello! I'm an enthusiastic AI student with a newfound passion for web development. In just a few months, I've dived deep into building dynamic websites, and I've discovered my unique edge: using AI as my development partner.
+                    </p>
+                    <p class="text-slate-300 text-lg mb-4">
+                        My approach is different. I leverage powerful AI tools for everything from generating efficient code and debugging complex problems to designing user-friendly interfaces. This allows me to learn rapidly and build sophisticated applications that are both functional and visually compelling.
+                    </p>
+                    <p class="text-slate-300 text-lg">
+                        I'm excited to be at the intersection of AI and web development, and I'm eager to contribute to projects that push the boundaries of what's possible.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 scroll-reveal">
+            <h2 class="text-4xl font-bold text-center mb-2 section-title">My Projects</h2>
+            <p class="text-center text-slate-400 mb-12">A selection of my work, built with code and creativity.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="ai agent.png" alt="AI Agent Using HTML" class="rounded-lg">
+                        <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full">Made with AI</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">AI Agent (HTML/JS)</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A simple conversational AI agent built with vanilla JavaScript and HTML, demonstrating front-end logic.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">HTML</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">CSS</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">JavaScript</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="Ai Agent(html).html" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <div class="relative mb-4">
+                        <img src="https://placehold.co/600x400/1e293b/e2e8f0?text=AI+Agent+(Python)" alt="AI Agent Using Python" class="rounded-lg">
+                        <span class="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full">Made with AI</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Python AI Agent</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A command-line AI agent developed in Python, capable of handling complex queries and tasks.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">Python</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">AI/ML</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">NLP</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="#" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="#" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <img src="Food_imresizer.jpg" alt="QR Code Base Food Menu" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold text-white mb-2">QR Code Digital Menu</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A web app for restaurants that displays a digital menu when a QR code is scanned. Clean UI and fast loading.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">JavaScript</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">QR Code API</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">HTML/CSS</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="Food menu/index food.html" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="#" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+                <!-- Project Card 4 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <img src="LOST.png" alt="Lost & Found Portal" class="rounded-lg mb-4">
+                    
+                    <h3 class="text-2xl font-bold text-white mb-2">Lost & Found Portal</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A community-based web portal for users to post lost or found items to help reconnect them with owners.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">React</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">Firebase</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">TailwindCSS</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="lost&found/index lost.html" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+                <!-- Project Card 5 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <img src="E-commerce.png" alt="E-Commerce Small Version" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold text-white mb-2">Mini E-Commerce Site</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A lightweight e-commerce platform featuring product listings, a shopping cart, and a checkout process.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">React</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">State Management</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="E-Commerce/home.html" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="#" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+                <!-- Project Card 6 -->
+                <div class="glass-card p-6 flex flex-col">
+                    <img src="CA.png" alt="Chartered Accountant Portfolio" class="rounded-lg mb-4">
+                    <h3 class="text-2xl font-bold text-white mb-2">Chartered Accountant Portfolio</h3>
+                    <p class="text-slate-400 flex-grow mb-4">A professional portfolio website designed for a Chartered Accountant to showcase their services and expertise.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">HTML/CSS</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">JavaScript</span>
+                        <span class="bg-slate-700 text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full">Responsive Design</span>
+                    </div>
+                    <div class="flex justify-end gap-4 mt-auto">
+                        <a href="CA/index Ca.html" class="text-blue-400 hover:text-blue-300">Live Demo</a>
+                        <a href="#" class="text-slate-400 hover:text-white">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 scroll-reveal">
+            <h2 class="text-4xl font-bold text-center mb-2 section-title">My Tech Stack</h2>
+            <p class="text-center text-slate-400 mb-12">Technologies I use to bring ideas to life.</p>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="font-bold text-lg">Web Dev</h3>
+                        <p class="text-slate-400">HTML, CSS, JS, Tailwind</p>
+                    </div>
+                     <div class="flex flex-col items-center gap-2">
+                        <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <h3 class="font-bold text-lg">Frameworks</h3>
+                        <p class="text-slate-400">React, Next.js, Vue</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3M5.636 5.636l1.414 1.414m10.05 10.05l1.414 1.414M19.778 5.636l-1.414 1.414M4.222 19.778l-1.414 1.414"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                        <h3 class="font-bold text-lg">AI / ML</h3>
+                        <p class="text-slate-400">Python, TensorFlow, Scikit-learn</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7s8 4 8 4s8-4 8-4M12 11v4"></path></svg>
+                        <h3 class="font-bold text-lg">Databases</h3>
+                        <p class="text-slate-400">Firebase, SQL</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 text-center scroll-reveal">
+            <h2 class="text-4xl font-bold text-center mb-2 section-title">Get In Touch</h2>
+            <p class="text-center text-slate-400 mb-8 max-w-xl mx-auto">I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+            <a href="mailto:your.email@example.com" class="bg-purple-600 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-700 transition-all duration-300 transform hover:scale-105">
+                Say Hello
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900/50 border-t border-slate-800">
+        <div class="container mx-auto px-6 py-8 text-center text-slate-400">
+            <p>&copy; 2024 Your Name. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Designed with <span class="text-red-500">&hearts;</span> and built with AI.</p>
+        </div>
+    </footer>
+
+
+    <!-- Three.js for 3D Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- 3D HERO ANIMATION ---
+        // This script creates the cool particle animation in the hero section.
+        // It uses Three.js, a popular library for 3D graphics in the browser.
+        
+        // 1. Setup Scene, Camera, and Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.querySelector('#hero-canvas'),
+            alpha: true // Makes the background transparent
+        });
+
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.setZ(50);
+
+        // 2. Create Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000; // Number of particles
+
+        const posArray = new Float32Array(particlesCount * 3); // x, y, z for each particle
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+            // Assign random positions
+            posArray[i] = (Math.random() - 0.5) * (Math.random() * 5) * 100;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        // 3. Create Material for Particles
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x3b82f6 // Blue color, matching the theme
+        });
+
+        // 4. Create the Points object and add to scene
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // 5. Mouse Interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
+        // 6. Animation Loop
+        const clock = new THREE.Clock();
+        const animate = () => {
+            requestAnimationFrame(animate);
+
+            const elapsedTime = clock.getElapsedTime();
+
+            // Animate particles
+            particlesMesh.rotation.y = -0.1 * elapsedTime;
+            particlesMesh.rotation.x = -0.1 * elapsedTime;
+
+            // Make particles react to mouse movement
+            const targetX = mouseX * 0.001;
+            const targetY = mouseY * 0.001;
+            particlesMesh.rotation.y += 0.5 * (targetX - particlesMesh.rotation.y);
+            particlesMesh.rotation.x += 0.5 * (targetY - particlesMesh.rotation.x);
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+        
+        // 7. Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- SCROLL REVEAL ANIMATION ---
+        // This script makes sections fade in as you scroll down.
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: unobserve after revealing to save resources
+                    // revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+    </script>
+</body>
+</html>
