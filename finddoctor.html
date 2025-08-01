@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor - MediConnect</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* A light gray background */
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .doctor-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header / Navigation (Same as homepage) -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-500">
+                <i class="fas fa-heart-pulse mr-2"></i>MediConnect
+            </a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-blue-500 transition">Home</a>
+                <a href="index.html#services" class="text-gray-600 hover:text-blue-500 transition">Services</a>
+                <a href="finddoctor.html" class="text-blue-500 font-semibold transition">Find a Doctor</a>
+                <a href="index.html#about" class="text-gray-600 hover:text-blue-500 transition">About Us</a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-500 transition">Contact</a>
+            </div>
+            <a href="Book Appointment.html" class="hidden lg:block bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg cta-button">Book Appointment</a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-blue-500">Home</a>
+            <a href="index.html#services" class="block py-2 text-gray-600 hover:text-blue-500">Services</a>
+            <a href="finddoctor.html" class="block py-2 text-blue-500 font-semibold">Find a Doctor</a>
+            <a href="index.html#about" class="block py-2 text-gray-600 hover:text-blue-500">About Us</a>
+            <a href="index.html#contact" class="block py-2 text-gray-600 hover:text-blue-500">Contact</a>
+            <a href="Book Appointment.html" class="block mt-4 bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg text-center cta-button">Book Appointment</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center sm:text-left">Find Your Doctor</h1>
+
+        <!-- Search and Filter Bar -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <!-- Responsive grid for filters. 1 col on mobile, 2 on small screens, 4 on large. -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <input type="text" placeholder="Doctor name or specialty..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" placeholder="Location (e.g., MedCity)" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Any Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <button class="w-full bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg cta-button">Search</button>
+            </div>
+        </div>
+
+        <!-- Doctor List -->
+        <!-- Responsive grid for doctor cards. 1 col on mobile, 2 on tablet, 3 on desktop. -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Doctor Card 1 -->
+            <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <!-- Responsive layout for doctor info. Stacks on mobile, row on larger screens. -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <img src="https://placehold.co/100x100/EBF8FF/3182CE?text=Dr." alt="Doctor Photo" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 flex-shrink-0">
+                        <div>
+                            <h3 class="text-xl font-bold">Dr. Anjali Sharma</h3>
+                            <p class="text-blue-600">Cardiologist</p>
+                            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> MedCity, India</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span>4.9 (120 reviews)</span>
+                        </div>
+                        <p><span class="font-bold text-green-600">Available</span> Today</p>
+                    </div>
+                    <div class="mt-6">
+                        <a href="anjali.html" class="w-full text-center block bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg cta-button">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor Card 2 -->
+            <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <!-- Responsive layout for doctor info. Stacks on mobile, row on larger screens. -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <img src="https://placehold.co/100x100/EBF8FF/3182CE?text=Dr." alt="Doctor Photo" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 flex-shrink-0">
+                        <div>
+                            <h3 class="text-xl font-bold">Dr. Vikram Singh</h3>
+                            <p class="text-blue-600">Neurologist</p>
+                            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> MedCity, India</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span>4.8 (95 reviews)</span>
+                        </div>
+                        <p><span class="font-bold text-green-600">Available</span> Tomorrow</p>
+                    </div>
+                    <div class="mt-6">
+                        <a href="vikram.html" class="w-full text-center block bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg cta-button">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doctor Card 3 -->
+            <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <!-- Responsive layout for doctor info. Stacks on mobile, row on larger screens. -->
+                    <div class="flex flex-col sm:flex-row items-center text-center sm:text-left sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <img src="https://placehold.co/100x100/EBF8FF/3182CE?text=Dr." alt="Doctor Photo" class="w-24 h-24 rounded-full object-cover border-4 border-blue-100 flex-shrink-0">
+                        <div>
+                            <h3 class="text-xl font-bold">Dr. Priya Patel</h3>
+                            <p class="text-blue-600">Pediatrician</p>
+                            <p class="text-gray-500 text-sm mt-1"><i class="fas fa-map-marker-alt mr-1"></i> Healthville, India</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i>
+                            <span>5.0 (210 reviews)</span>
+                        </div>
+                        <p><span class="font-bold text-red-500">Full</span> Today</p>
+                    </div>
+                    <div class="mt-6">
+                        <a href="priya.html" class="w-full text-center block bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg cta-button">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more doctor cards as needed -->
+
+        </div>
+    </main>
+
+    <!-- Footer (Same as homepage) -->
+    <footer id="contact" class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <!-- Footer content from homepage -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4">MediConnect</h4>
+                    <p class="text-gray-400">Making healthcare accessible to everyone, everywhere.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="index.html#services" class="text-gray-400 hover:text-white">Services</a></li>
+                        <li><a href="finddoctor.html" class="text-gray-400 hover:text-white">Find a Doctor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3"></i>123 Health St, MedCity, India</li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-3"></i>(123) 456-7890</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Subscribe</h4>
+                    <form class="flex">
+                        <input type="email" placeholder="Your Email" class="w-full px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none">
+                        <button type="submit" class="bg-blue-500 text-white px-4 rounded-r-lg hover:bg-blue-600"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500">
+                &copy; 2024 MediConnect. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+           
+        
+    </script>
+
+</body>
+</html>

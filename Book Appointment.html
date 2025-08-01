@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book an Appointment - MediConnect</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-gray-800">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-500">
+                <i class="fas fa-heart-pulse mr-2"></i>MediConnect
+            </a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="index.html" class="text-gray-600 hover:text-blue-500 transition">Home</a>
+                <a href="index.html#services" class="text-gray-600 hover:text-blue-500 transition">Services</a>
+                <a href="finddoctor.html" class="text-gray-600 hover:text-blue-500 transition">Find a Doctor</a>
+                <a href="Health Blog.html" class="text-gray-600 hover:text-blue-500 transition">Health Blog</a>
+                <a href="index.html#about" class="text-gray-600 hover:text-blue-500 transition">About Us</a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-500 transition">Contact</a>
+            </div>
+            <a href="Book Appointment.html" class="hidden lg:block bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg cta-button">Book Appointment</a>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden px-6 pb-4">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-blue-500">Home</a>
+            <a href="index.html#services" class="block py-2 text-gray-600 hover:text-blue-500">Services</a>
+            <a href="finddoctor.html" class="block py-2 text-gray-600 hover:text-blue-500">Find a Doctor</a>
+            <a href="Health Blog.html" class="block py-2 text-gray-600 hover:text-blue-500">Health Blog</a>
+            <a href="index.html#about" class="block py-2 text-gray-600 hover:text-blue-500">About Us</a>
+            <a href="index.html#contact" class="block py-2 text-gray-600 hover:text-blue-500">Contact</a>
+            <a href="Book Appointment.html" class="block mt-4 bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg text-center cta-button">Book Appointment</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 md:py-20">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Book an Appointment</h1>
+                    <p class="text-gray-600 mt-2">Fill out the form below to schedule your visit.</p>
+                </div>
+                
+                <form id="appointment-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Full Name -->
+                        <div>
+                            <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="full-name" name="full-name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <!-- Email Address -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <!-- Select Doctor -->
+                        <div>
+                            <label for="doctor" class="block text-sm font-medium text-gray-700 mb-1">Select Doctor</label>
+                            <select id="doctor" name="doctor" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Choose a doctor</option>
+                                <option value="Dr. Anjali Sharma (Cardiologist)">Dr. Anjali Sharma (Cardiologist)</option>
+                                <option value="Dr. Vikram Singh (Neurologist)">Dr. Vikram Singh (Neurologist)</option>
+                                <option value="Dr. Priya Patel (Pediatrician)">Dr. Priya Patel (Pediatrician)</option>
+                            </select>
+                        </div>
+                        <!-- Preferred Date -->
+                        <div>
+                            <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                            <input type="date" id="date" name="date" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <!-- Preferred Time -->
+                        <div>
+                            <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
+                            <select id="time" name="time" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select a time slot</option>
+                                <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                                <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                            </select>
+                        </div>
+                        <!-- Reason for Visit -->
+                        <div class="md:col-span-2">
+                            <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Visit</label>
+                            <textarea id="reason" name="reason" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="mt-8 text-center">
+                        <button type="submit" class="w-full md:w-auto bg-green-500 text-white font-semibold px-10 py-3 rounded-lg cta-button">
+                            Submit Appointment Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Appointment Confirmation Section (hidden by default) -->
+            <div id="confirmation-section" class="hidden mt-10 bg-green-50 p-6 rounded-xl border border-green-200">
+                <div class="text-center">
+                    <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                    <h2 class="text-2xl font-bold text-gray-800 mt-4">Appointment Request Received!</h2>
+                    <p class="text-gray-600 mt-2">We have received your request. We will contact you shortly to confirm.</p>
+                </div>
+                <div class="mt-6 border-t border-green-200 pt-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Your Details:</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-600">
+                        <div><strong>Name:</strong> <span id="conf-name"></span></div>
+                        <div><strong>Email:</strong> <span id="conf-email"></span></div>
+                        <div><strong>Phone:</strong> <span id="conf-phone"></span></div>
+                        <div><strong>Doctor:</strong> <span id="conf-doctor"></span></div>
+                        <div><strong>Date:</strong> <span id="conf-date"></span></div>
+                        <div><strong>Time:</strong> <span id="conf-time"></span></div>
+                        <div class="sm:col-span-2"><strong>Reason:</strong> <span id="conf-reason"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-12">
+            <div class="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500">
+                &copy; 2024 MediConnect. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // JavaScript for appointment form submission
+        const appointmentForm = document.getElementById('appointment-form');
+        const confirmationSection = document.getElementById('confirmation-section');
+
+        appointmentForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the form from submitting and reloading the page
+
+            // Get form values
+            const name = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const doctor = document.getElementById('doctor').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const reason = document.getElementById('reason').value;
+
+            // Populate confirmation details
+            document.getElementById('conf-name').textContent = name;
+            document.getElementById('conf-email').textContent = email;
+            document.getElementById('conf-phone').textContent = phone;
+            document.getElementById('conf-doctor').textContent = doctor;
+            document.getElementById('conf-date').textContent = date;
+            document.getElementById('conf-time').textContent = time;
+            document.getElementById('conf-reason').textContent = reason || 'N/A';
+
+            // Show the confirmation section
+            confirmationSection.classList.remove('hidden');
+
+            // Optional: Scroll to the confirmation section
+            confirmationSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Optional: Reset the form
+            appointmentForm.reset();
+        });
+    </script>
+
+</body>
+</html>
