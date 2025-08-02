@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Collection - MyShop</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Link to the main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header Section (Consistent across all pages) -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🛒 MyShop</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="all-products.html">All Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Main Category Header -->
+        <section class="category-header">
+            <div class="container">
+                <h1>Latest in Fashion</h1>
+                <p>Explore our curated collection of trendy apparel, shoes, and accessories.</p>
+            </div>
+        </section>
+
+        <!-- Sticky Sub-Category Navigation Bar -->
+        <nav class="subcategory-nav">
+            <div class="container">
+                <a href="#men">Men</a>
+                <a href="#women">Women</a>
+                <a href="#kids">Kids</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- MEN'S FASHION SECTION -->
+            <section id="men" class="product-category-section">
+                <h2>Men's Fashion</h2>
+
+                <!-- Men's Shirts & T-Shirts -->
+                <h3 class="product-group-title">Shirts & T-Shirts</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1605932235234-ab6cf0d05b5b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Men's Shirt">
+                        <div class="product-info">
+                            <h3>Linen Casual Shirt</h3>
+                            <p class="price">₹1,799</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Linen Casual Shirt', 1799, 'https://images.unsplash.com/photo-1605932235234-ab6cf0d05b5b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Men's T-Shirt">
+                        <div class="product-info">
+                            <h3>Graphic Print T-Shirt</h3>
+                            <p class="price">₹899</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Graphic Print T-Shirt', 899, 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1596755094514-7e724d082a84?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Polo T-Shirt">
+                        <div class="product-info">
+                            <h3>Classic Polo T-Shirt</h3>
+                            <p class="price">₹1,299</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Classic Polo T-Shirt', 1299, 'https://images.unsplash.com/photo-1596755094514-7e724d082a84?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Men's Pants & Jeans -->
+                <h3 class="product-group-title">Pants & Jeans</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1604176354204-926873782855?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Men's Jeans">
+                        <div class="product-info">
+                            <h3>Slim Fit Denim Jeans</h3>
+                            <p class="price">₹2,499</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Slim Fit Denim Jeans', 2499, 'https://images.unsplash.com/photo-1604176354204-926873782855?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Men's Chinos">
+                        <div class="product-info">
+                            <h3>Comfort-Fit Chinos</h3>
+                            <p class="price">₹1,999</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Comfort-Fit Chinos', 1999, 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WOMEN'S FASHION SECTION -->
+            <section id="women" class="product-category-section">
+                <h2>Women's Fashion</h2>
+
+                <!-- Women's Tops & Dresses -->
+                <h3 class="product-group-title">Tops & Dresses</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1572804013427-4d7ca7268217?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Summer Dress">
+                        <div class="product-info">
+                            <h3>Floral Summer Dress</h3>
+                            <p class="price">₹1,890</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Floral Summer Dress', 1890, 'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Women's Top">
+                        <div class="product-info">
+                            <h3>Elegant Ruffled Top</h3>
+                            <p class="price">₹1,199</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Elegant Ruffled Top', 1199, 'https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Women's Accessories -->
+                <h3 class="product-group-title">Accessories</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1590739241942-824f964d4715?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Leather Handbag">
+                        <div class="product-info">
+                            <h3>Artisan Leather Handbag</h3>
+                            <p class="price">₹3,499</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Artisan Leather Handbag', 3499, 'https://images.unsplash.com/photo-1590739241942-824f964d4715?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Sneakers">
+                        <div class="product-info">
+                            <h3>Urban Runner Sneakers</h3>
+                            <p class="price">₹4,200</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Urban Runner Sneakers', 4200, 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KIDS' FASHION SECTION -->
+            <section id="kids" class="product-category-section">
+                <h2>Kids' Collection</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Kids T-Shirt">
+                        <div class="product-info">
+                            <h3>Dino Adventure T-Shirt</h3>
+                            <p class="price">₹599</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Dino Adventure T-Shirt', 599, 'https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1622996919014-99b8214b7e63?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Kids Jeans">
+                        <div class="product-info">
+                            <h3>Comfy Kids Jeans</h3>
+                            <p class="price">₹999</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Comfy Kids Jeans', 999, 'https://images.unsplash.com/photo-1622996919014-99b8214b7e63?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1605501029438-90350a4555aa?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+                            alt="Kids Shoes">
+                        <div class="product-info">
+                            <h3>Little Star Sneakers</h3>
+                            <p class="price">₹1,299</p>
+                            <div class="product-buttons"><button class="btn btn-secondary"
+                                    onclick="addToCart('Little Star Sneakers', 1299, 'https://images.unsplash.com/photo-1605501029438-90350a4555aa?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add
+                                    to Cart</button><a href="payment.html" class="btn btn-buy">Buy Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section (Consistent across all pages) -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

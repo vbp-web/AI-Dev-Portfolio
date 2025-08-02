@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Decor - MyShop</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Link to the main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Section (Consistent across all pages) -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🛒 MyShop</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="all-products.html">All Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Main Category Header -->
+        <section class="category-header">
+            <div class="container">
+                <h1>Home Decor Collection</h1>
+                <p>Beautify your space with our collection of modern and classic decor items.</p>
+            </div>
+        </section>
+
+        <!-- Product Grid Section -->
+        <section class="product-section">
+            <div class="container">
+                <div class="product-grid">
+
+                    <!-- Product 1: Table Lamp -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1543198126-a8ad8e47fb22?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Modern Table Lamp">
+                        <div class="product-info">
+                            <h3>Modern Table Lamp</h3>
+                            <p class="price">₹1,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Modern Table Lamp', 1999, 'https://images.unsplash.com/photo-1543198126-a8ad8e47fb22?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Wall Art -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1541994246223-11c585532155?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Abstract Wall Art">
+                        <div class="product-info">
+                            <h3>Abstract Canvas Art</h3>
+                            <p class="price">₹2,490</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Abstract Canvas Art', 2490, 'https://images.unsplash.com/photo-1541994246223-11c585532155?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Cushions -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1560069888-e83c333a4046?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Cushions">
+                        <div class="product-info">
+                            <h3>Velvet Throw Cushions (Set of 2)</h3>
+                            <p class="price">₹1,250</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Velvet Throw Cushions', 1250, 'https://images.unsplash.com/photo-1560069888-e83c333a4046?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Ceramic Vase -->
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1578916380323-3b1d1a55b3ca?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Ceramic Vase">
+                        <div class="product-info">
+                            <h3>Minimalist Ceramic Vase</h3>
+                            <p class="price">₹999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Minimalist Ceramic Vase', 999, 'https://images.unsplash.com/photo-1578916380323-3b1d1a55b3ca?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Scented Candle -->
+                     <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1600855966810-73793539a2d9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Scented Candle">
+                        <div class="product-info">
+                            <h3>Lavender Scented Candle</h3>
+                            <p class="price">₹799</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Lavender Scented Candle', 799, 'https://images.unsplash.com/photo-1600855966810-73793539a2d9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 6: Wall Clock -->
+                     <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Wall Clock">
+                        <div class="product-info">
+                            <h3>Large Wall Clock</h3>
+                            <p class="price">₹2,100</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Large Wall Clock', 2100, 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section (Consistent across all pages) -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2025 MyShop. All Rights Reserved.</p></div>
+        </div>
+    </footer>
+
+    <!-- Added the script file link -->
+    <script src="script.js"></script>
+
+</body>
+</html>

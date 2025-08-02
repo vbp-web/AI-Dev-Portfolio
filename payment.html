@@ -1,149 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Payment Method - Food Order</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - MyShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-sans">
+<body>
 
-  <!-- Header -->
-  <header class="bg-orange-600 text-white text-center py-4 shadow">
-    <h1 class="text-2xl font-bold">💰 Choose Payment Method</h1>
-  </header>
-
-  <!-- Main -->
-  <main class="max-w-xl mx-auto bg-white mt-10 p-6 rounded shadow">
-    <form onsubmit="submitPayment(event)">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Select a payment option:</h2>
-
-      <!-- UPI -->
-      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
-        <input type="radio" name="payment" value="UPI" class="mr-2" onchange="showSection('upi')">
-        <span class="font-medium">UPI / Google Pay / PhonePe</span>
-      </label>
-
-      <!-- Card -->
-      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
-        <input type="radio" name="payment" value="Card" class="mr-2" onchange="showSection('card')">
-        <span class="font-medium">Credit / Debit Card</span>
-      </label>
-
-      <!-- COD -->
-      <label class="block border p-4 rounded mb-3 cursor-pointer hover:border-orange-500">
-        <input type="radio" name="payment" value="COD" class="mr-2" onchange="showSection('cod')">
-        <span class="font-medium">💵 Cash on Delivery (COD)</span>
-        <p class="text-sm text-gray-500 ml-6 mt-1">Pay cash when the order is delivered to your address.</p>
-      </label>
-
-      <!-- UPI QR Section -->
-      <div id="upiSection" class="hidden mt-4">
-        <p class="font-medium mb-2">Scan this QR code using your UPI app:</p>
-        <img src="your-qr-code.png" alt="UPI QR" class="w-64 mx-auto rounded shadow" />
-      </div>
-
-      <!-- Card Payment Section -->
-      <div id="cardSection" class="hidden mt-4">
-        <h3 class="text-lg font-semibold mb-2">Enter Card Details</h3>
-        <input type="text" placeholder="Card Number" class="w-full mb-2 p-2 border rounded" required>
-        <input type="text" placeholder="Name on Card" class="w-full mb-2 p-2 border rounded" required>
-        <div class="flex gap-2">
-          <input type="text" placeholder="MM/YY" class="w-1/2 p-2 border rounded" required>
-          <input type="text" placeholder="CVV" class="w-1/2 p-2 border rounded" required>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🛒 MyShop</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="all-products.html">All Products</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
+    </header>
 
-      <!-- Submit Button -->
-      <button type="submit" class="mt-6 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded text-lg">
-        Pay Now / Confirm Order
-      </button>
-    </form>
-  </main>
+    <main>
+        <div class="form-container">
+            <div class="form-box checkout-form">
+                <h2>Complete Your Purchase</h2>
+                
+                <form id="payment-form" onsubmit="handlePayment(event)">
+                    <!-- Shipping Information -->
+                    <h3 class="form-section-title">Shipping Address</h3>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">ZIP Code</label>
+                            <input type="text" id="zip" required>
+                        </div>
+                    </div>
 
-  <!-- Footer -->
-  <footer class="text-center text-gray-600 py-4 mt-10">
-    &copy; 2025 Food House | All rights reserved.
-  </footer>
+                    <!-- Payment Method Selection -->
+                    <h3 class="form-section-title">Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <input type="radio" id="card-option" name="payment-method" value="card" checked onchange="togglePaymentDetails()">
+                            <label for="card-option">Credit/Debit Card</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="upi-option" name="payment-method" value="upi" onchange="togglePaymentDetails()">
+                            <label for="upi-option">UPI</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="cod-option" name="payment-method" value="cod" onchange="togglePaymentDetails()">
+                            <label for="cod-option">Cash on Delivery</label>
+                        </div>
+                    </div>
 
-  <!-- Script -->
-<script>
-  function showSection(type) {
-    document.getElementById("upiSection").classList.add("hidden");
-    document.getElementById("cardSection").classList.add("hidden");
+                    <!-- Card Payment Details (Visible by default) -->
+                    <div id="card-payment-details">
+                        <div class="form-group">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" placeholder="1111 2222 3333 4444">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry-date">Expiry Date</label>
+                                <input type="text" id="expiry-date" placeholder="MM/YY">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
 
-    if (type === "upi") {
-      document.getElementById("upiSection").classList.remove("hidden");
-    } else if (type === "card") {
-      document.getElementById("cardSection").classList.remove("hidden");
-    }
-  }
+                    <!-- UPI Payment Details (Hidden by default) -->
+                    <div id="upi-payment-details" style="display: none;">
+                        <div class="form-group">
+                            <label for="upi-id">UPI ID</label>
+                            <input type="text" id="upi-id" placeholder="yourname@bank">
+                        </div>
+                    </div>
 
-  function submitPayment(e) {
-    e.preventDefault();
-    const selected = document.querySelector('input[name="payment"]:checked');
+                    <!-- Cash on Delivery Details (Hidden by default) -->
+                    <div id="cod-details" style="display: none;">
+                        <p class="cod-message">You will pay upon delivery. Please have the exact amount ready.</p>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary form-btn">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </main>
 
-    if (!selected) {
-      alert("❌ Please select a payment method.");
-      return;
-    }
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2025 MyShop. All Rights Reserved.</p></div>
+        </div>
+    </footer>
 
-    const method = selected.value;
+    <script>
+        function togglePaymentDetails() {
+            const cardDetails = document.getElementById('card-payment-details');
+            const upiDetails = document.getElementById('upi-payment-details');
+            const codDetails = document.getElementById('cod-details');
+            
+            if (document.getElementById('card-option').checked) {
+                cardDetails.style.display = 'block';
+                upiDetails.style.display = 'none';
+                codDetails.style.display = 'none';
+            } else if (document.getElementById('upi-option').checked) {
+                cardDetails.style.display = 'none';
+                upiDetails.style.display = 'block';
+                codDetails.style.display = 'none';
+            } else if (document.getElementById('cod-option').checked) {
+                cardDetails.style.display = 'none';
+                upiDetails.style.display = 'none';
+                codDetails.style.display = 'block';
+            }
+        }
 
-    if (method === "COD") {
-      showSuccess("✅ Order confirmed! You will pay cash on delivery.");
-    } 
-    else if (method === "UPI") {
-      const confirmUPI = confirm("Have you completed the UPI payment using QR?");
-      if (confirmUPI) {
-        showSuccess("✅ UPI Payment successful! Order confirmed.");
-      } else {
-        alert("⚠️ Please complete UPI payment to proceed.");
-      }
-    } 
-    else if (method === "Card") {
-      const cardNum = document.querySelector('input[placeholder="Card Number"]').value.trim();
-      const cardName = document.querySelector('input[placeholder="Name on Card"]').value.trim();
-      const cardExpiry = document.querySelector('input[placeholder="MM/YY"]').value.trim();
-      const cardCVV = document.querySelector('input[placeholder="CVV"]').value.trim();
+        function handlePayment(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            alert('Thank you for your order! Your purchase is complete.');
+            // Here you would typically send the form data to a server
+            window.location.href = 'index.html'; // Redirect to home page after "payment"
+        }
 
-      if (!cardNum || !cardName || !cardExpiry || !cardCVV) {
-        alert("❌ Please fill in all card details.");
-        return;
-      }
-
-      const confirmCard = confirm("Submit card payment?");
-      if (confirmCard) {
-        showSuccess("✅ Card payment successful! Order confirmed.");
-      } else {
-        alert("⚠️ Payment not completed.");
-      }
-    }
-  }
-
-  function showSuccess(message) {
-    document.querySelector("form").classList.add("hidden");
-    const main = document.querySelector("main");
-    main.innerHTML += `
-      <div class="mt-6 text-center bg-green-100 text-green-700 p-4 rounded shadow">
-        <h2 class="text-2xl font-bold mb-2">🎉 Thank You!</h2>
-        <p>${message}</p>
-        <p class="mt-2">Your order will be delivered soon. 🍽️</p>
-      </div>
-    `;
-  }
-  fetch("http://localhost:5000/api/order", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    paymentMethod: method,
-    total: 250, // 👈 You can replace with real total from cart
-    items: ['Paneer Tikka', 'Butter Naan'] // or localStorage/cart data
-  }),
-});
-
-</script>
-
-
+        // Run on page load to set the initial state
+        document.addEventListener('DOMContentLoaded', togglePaymentDetails);
+    </script>
 </body>
 </html>

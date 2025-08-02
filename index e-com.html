@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop - Welcome to Your One-Stop Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🛒 MyShop</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="allproduct.html">All Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <a href="cart.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Find Your Style, At Your Price</h1>
+                <p>Get the best deals on millions of high-quality products.</p>
+                <a href="#featured-products" class="btn btn-primary">Shop Now</a>
+            </div>
+        </section>
+
+        <section id="featured-products" class="product-section">
+            <div class="container">
+                <h2>Featured Products</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Smartphone X">
+                        <div class="product-info">
+                            <h3>Smartphone X</h3>
+                            <p class="price">₹19,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Smartphone X', 19999, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Wireless Headphones">
+                        <div class="product-info">
+                            <h3>Wireless Headphones</h3>
+                            <p class="price">₹2,499</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Wireless Headphones', 2499, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Running Shoes">
+                        <div class="product-info">
+                            <h3>Pro Running Shoes</h3>
+                            <p class="price">₹4,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Pro Running Shoes', 4999, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Smart Watch">
+                        <div class="product-info">
+                            <h3>Smart Watch 2.0</h3>
+                            <p class="price">₹8,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('Smart Watch 2.0', 8999, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="container">
+                <h2>Shop by Category</h2>
+                <div class="category-grid">
+                    <div class="category-card">
+                        <div class="card-inner">
+                            <div class="card-front" style="background-image: url('https://images.unsplash.com/photo-1526738549149-8e07eca6c147?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                                <h3>Electronics</h3>
+                            </div>
+                            <div class="card-back">
+                                <h4>Electronics</h4>
+                                <p>Phones, Laptops, Gadgets & more.</p>
+                                <a href="electronics.html" class="btn btn-primary">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <div class="card-inner">
+                            <div class="card-front" style="background-image: url('https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                                <h3>Fashion</h3>
+                            </div>
+                            <div class="card-back">
+                                <h4>Fashion</h4>
+                                <p>Trendy Clothes, Shoes & Accessories.</p>
+                                <a href="fashion.html" class="btn btn-primary">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <div class="card-inner">
+                            <div class="card-front" style="background-image: url('https://images.unsplash.com/photo-1534349762234-2a71d4f35213?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600');">
+                                <h3>Home Decor</h3>
+                            </div>
+                            <div class="card-back">
+                                <h4>Home Decor</h4>
+                                <p>Make your home beautiful and cozy.</p>
+                                <a href="home decore.html" class="btn btn-primary">Explore</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="newsletter-section">
+            <div class="container">
+                <h3>Subscribe to our Newsletter</h3>
+                <p>Get exclusive deals and product updates straight to your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>About MyShop</h4>
+                    <p>Your one-stop shop for everything you need. We provide quality products with the best prices and fast delivery.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="shipping.html">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="cart.html" class="floating-cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-counter">0</span>
+    </a>
+
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

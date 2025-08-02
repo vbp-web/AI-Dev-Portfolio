@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics - MyShop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">🛒 MyShop</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="allproduct.html">All Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="category-header">
+            <div class="container">
+                <h1>Electronics Collection</h1>
+                <p>Discover the latest in tech, from powerful laptops to immersive gaming gear.</p>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="UltraBook Pro">
+                        <div class="product-info">
+                            <h3>UltraBook Pro</h3>
+                            <p class="price">₹89,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('UltraBook Pro', 89999, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="GameSphere 5">
+                        <div class="product-info">
+                            <h3>GameSphere 5</h3>
+                            <p class="price">₹49,990</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('GameSphere 5', 49990, 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="DSLR Camera">
+                        <div class="product-info">
+                            <h3>ProShot DSLR Camera</h3>
+                            <p class="price">₹54,500</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('ProShot DSLR Camera', 54500, 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1587467629223-9363a45c27a2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Tablet">
+                        <div class="product-info">
+                            <h3>TabPro 11-inch</h3>
+                            <p class="price">₹42,900</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('TabPro 11-inch', 42900, 'https://images.unsplash.com/photo-1587467629223-9363a45c27a2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1507582020474-9a334a76191a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Drone">
+                        <div class="product-info">
+                            <h3>SkyRider Drone</h3>
+                            <p class="price">₹25,000</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('SkyRider Drone', 25000, 'https://images.unsplash.com/photo-1507582020474-9a334a76191a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="VR Headset">
+                        <div class="product-info">
+                            <h3>VirtuReal VR Headset</h3>
+                            <p class="price">₹35,999</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-secondary" onclick="addToCart('VirtuReal VR Headset', 35999, 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200')">Add to Cart</button>
+                                <a href="payment.html" class="btn btn-buy">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyShop. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
