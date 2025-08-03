@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wixa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" xintegrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #b3b3b3;
+        }
+        .main-container {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            grid-template-columns: auto 1fr;
+            height: 100vh;
+            width: 100%;
+        }
+        .sidebar {
+            grid-row: 1 / 2;
+            grid-column: 1 / 2;
+            background-color: #000;
+            transition: transform 0.3s ease-in-out;
+        }
+        .main-content {
+            grid-row: 1 / 2;
+            grid-column: 2 / 3;
+            background: linear-gradient(to bottom, #222222, #121212);
+            overflow-y: auto;
+        }
+        .player-bar {
+            grid-row: 2 / 3;
+            grid-column: 1 / 3;
+            background-color: #181818;
+            border-top: 1px solid #282828;
+        }
+        /* Custom scrollbar */
+        .main-content::-webkit-scrollbar {
+            width: 12px;
+        }
+        .main-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .main-content::-webkit-scrollbar-thumb {
+            background-color: #535353;
+            border-radius: 20px;
+        }
+        .card-play-button {
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform: translateY(10px);
+        }
+        .group:hover .card-play-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .artist-card img {
+            transition: box-shadow 0.3s ease;
+        }
+        .artist-card:hover img {
+            box-shadow: 0 8px 24px rgba(0,0,0,.5);
+        }
+        /* Player progress bar */
+        .player-progress-container { background: #5e5e5e; }
+        .player-progress { background: #fff; transition: width 0.1s linear; }
+        .player-progress-container:hover .player-progress { background: #1db954; }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+                z-index: 1000;
+                height: calc(100% - 90px); /* Full height minus player bar */
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                grid-column: 1 / 2;
+                margin: 0;
+                border-radius: 0;
+            }
+            .player-bar {
+                grid-column: 1 / 2;
+                flex-direction: column;
+                height: auto;
+                padding: 8px;
+            }
+            .player-bar > div {
+                width: 100%;
+            }
+            .player-bar .w-1\/4, .player-bar .w-1\/2 {
+                width: 100%;
+                justify-content: center;
+            }
+            .player-bar .justify-end {
+                justify-content: center;
+            }
+            .player-bar .hidden-mobile {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-64 p-2 flex flex-col">
+            <div class="bg-[#121212] rounded-lg p-2 space-y-4">
+                <a href="#" class="flex items-center space-x-4 text-white font-bold text-md px-2">
+                    <i class="fas fa-home text-2xl"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="flex items-center space-x-4 text-white font-bold text-md px-2">
+                    <i class="fas fa-search text-2xl"></i>
+                    <span>Search</span>
+                </a>
+            </div>
+            <div class="bg-[#121212] rounded-lg mt-2 flex-grow p-2">
+                <div class="flex justify-between items-center text-white p-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-layer-group text-2xl"></i>
+                        <span class="font-bold">Your Library</span>
+                    </div>
+                    <button class="text-xl hover:bg-gray-800 rounded-full w-8 h-8">+</button>
+                </div>
+                <div class="bg-[#242424] rounded-lg p-4 my-4">
+                    <h3 class="font-bold text-white">Create your first playlist</h3>
+                    <p class="text-sm font-semibold mt-1">It's easy, we'll help you</p>
+                    <button class="bg-white text-black font-bold rounded-full px-4 py-1.5 mt-4 text-sm">Create playlist</button>
+                </div>
+                <div class="bg-[#242424] rounded-lg p-4 my-4">
+                    <h3 class="font-bold text-white">Let's find some podcasts</h3>
+                    <p class="text-sm font-semibold mt-1">We'll keep you updated on new episodes</p>
+                    <button class="bg-white text-black font-bold rounded-full px-4 py-1.5 mt-4 text-sm">Browse podcasts</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content rounded-lg m-2 md:m-2">
+            <header class="flex justify-between items-center p-4">
+                <div class="flex items-center space-x-4">
+                    <button id="menu-btn" class="md:hidden bg-black rounded-full w-8 h-8 text-white"><i class="fas fa-bars"></i></button>
+                    <button class="hidden md:block bg-black rounded-full w-8 h-8 text-white"><i class="fas fa-chevron-left"></i></button>
+                    <button class="hidden md:block bg-black rounded-full w-8 h-8 text-white"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div>
+                    <button class="text-gray-300 font-bold hover:text-white mr-4">Sign up</button>
+                    <button class="bg-white text-black font-extrabold rounded-full px-8 py-3">Log in</button>
+                </div>
+            </header>
+
+            <div class="p-6">
+                <div class="flex justify-between items-end mb-4">
+                    <h2 class="text-2xl font-bold text-white">Trending songs</h2>
+                    <a href="#" class="text-sm font-bold hover:underline">Show all</a>
+                </div>
+                <div id="song-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    <!-- Song cards will be injected here -->
+                </div>
+
+                <div class="flex justify-between items-end mt-10 mb-4">
+                    <h2 class="text-2xl font-bold text-white">Popular artists</h2>
+                    <a href="#" class="text-sm font-bold hover:underline">Show all</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                    <!-- Artist Cards -->
+                    <div class="bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition-colors duration-300 artist-card">
+                        <img src="https://placehold.co/200x200/7C3AED/FFFFFF?text=Arijit+Singh" alt="Artist" class="rounded-full shadow-lg mx-auto">
+                        <h3 class="text-white font-bold mt-4 text-center">Arijit Singh</h3>
+                        <p class="text-sm text-center">Artist</p>
+                    </div>
+                     <div class="bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition-colors duration-300 artist-card">
+                        <img src="https://placehold.co/200x200/10B981/FFFFFF?text=Shreya+Ghoshal" alt="Artist" class="rounded-full shadow-lg mx-auto">
+                        <h3 class="text-white font-bold mt-4 text-center">Shreya Ghoshal</h3>
+                        <p class="text-sm text-center">Artist</p>
+                    </div>
+                    <div class="bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition-colors duration-300 artist-card">
+                        <img src="https://placehold.co/200x200/10B981/FFFFFF?text=Shreya+Ghoshal" alt="Artist" class="rounded-full shadow-lg mx-auto">
+                        <h3 class="text-white font-bold mt-4 text-center">Sonu Nigam</h3>
+                        <p class="text-sm text-center">Artist</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Player Bar -->
+        <footer class="player-bar p-4 flex items-center justify-between text-white">
+            <div class="flex items-center space-x-4 w-1/4">
+                <img id="player-album-art" src="https://placehold.co/64x64/181818/b3b3b3?text=Music" alt="Album Art" class="w-14 h-14 rounded">
+                <div>
+                    <h3 id="player-song-title" class="font-semibold">Select a song</h3>
+                    <p id="player-song-artist" class="text-xs text-gray-400">Artist</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col items-center justify-center w-1/2">
+                <div class="flex items-center space-x-6 text-xl">
+                    <button id="shuffle-btn" class="control-btn text-gray-400 hover:text-white"><i class="fas fa-random"></i></button>
+                    <button id="prev-btn" class="control-btn text-gray-400 hover:text-white"><i class="fas fa-backward-step"></i></button>
+                    <button id="play-btn" class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center text-lg hover:scale-105"><i class="fas fa-play"></i></button>
+                    <button id="next-btn" class="control-btn text-gray-400 hover:text-white"><i class="fas fa-forward-step"></i></button>
+                    <button id="repeat-btn" class="control-btn text-gray-400 hover:text-white"><i class="fas fa-repeat"></i></button>
+                </div>
+                <div class="flex items-center space-x-2 w-full max-w-xl mt-2">
+                    <span id="current-time" class="text-xs">0:00</span>
+                    <div id="progress-container" class="player-progress-container h-1 w-full rounded-full cursor-pointer group">
+                        <div id="progress-bar" class="player-progress h-full rounded-full w-0"></div>
+                    </div>
+                    <span id="duration" class="text-xs">0:00</span>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3 w-1/4 justify-end">
+                <i id="volume-icon" class="fas fa-volume-high cursor-pointer hidden-mobile"></i>
+                <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="1" class="w-24 h-1 accent-white hidden-mobile">
+            </div>
+        </footer>
+
+    </div>
+    
+    <audio id="audio"></audio>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Element References ---
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('play-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const repeatBtn = document.getElementById('repeat-btn');
+        const menuBtn = document.getElementById('menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        
+        const songGrid = document.getElementById('song-grid');
+
+        // Player Bar elements
+        const playerAlbumArt = document.getElementById('player-album-art');
+        const playerSongTitle = document.getElementById('player-song-title');
+        const playerSongArtist = document.getElementById('player-song-artist');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const volumeIcon = document.getElementById('volume-icon');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // --- State ---
+        const songs = [
+            { title: 'Lag Jaa Gale ', artist: 'Sanam', src: 'Lag Jaa Gale.mp3', cover: 'https://placehold.co/200x200/fca5a5/7f1d1d?text=Lag Jaa Gale' },
+            { title: 'Luka Chuppi', artist: 'A.R. Rahman, Lata Mangeshkar', src: ' Luka Chuppi Best Audio Song_Rang De Basanti_Aamir Khan_Lata Mangeshkar_Soha.mp3', cover: 'https://placehold.co/200x200/fdba74/854d0e?text=Lukaa+Chuppi' },
+            { title: 'Dekha Ek Khwab ', artist: 'Kishore Kumar, Lata Mangeshkar, Shiv-Hari', src:'Dekha Ek Khwab Song _ Silsila _ Amitabh Bachchan, Rekha _ Kishore Kumar, Lata Mangeshkar _ Shiv-Hari.mp3', cover: 'https://placehold.co/200x200/fde047/854d0e?text=Dekha Ek Khwab ' },
+            { title: 'Thodi Si Daaru', artist: 'AP Dhillon, Shreya Ghoshal', src: 'https://cdn.pixabay.com/audio/2023/05/17/audio_eb09b09b9f.mp3', cover: 'https://placehold.co/200x200/a78bfa/581c87?text=Thodi+Si+Daaru' },
+            { title: 'Ragile Ragile', artist: 'Anirudh Ravichander', src: 'https://cdn.pixabay.com/audio/2021/11/23/audio_8683701548.mp3', cover: 'https://placehold.co/200x200/f472b6/831843?text=Ragile+Ragile' },
+            { title: 'Preet', artist: 'Dhadak', src: 'https://cdn.pixabay.com/audio/2022/05/27/audio_15dfb79269.mp3', cover: 'https://placehold.co/200x200/7dd3fc/0c4a6e?text=Preet' },
+            { title: 'Electronic Rock', artist: 'AlexiAction', src: 'https://cdn.pixabay.com/audio/2023/04/24/audio_1ac621c8b7.mp3', cover: 'https://placehold.co/200x200/f87171/991b1b?text=Rock' },
+            { title: 'Just Relax', artist: 'Lesfm', src: 'https://cdn.pixabay.com/audio/2022/01/24/audio_37b91d22f8.mp3', cover: 'https://placehold.co/200x200/86efac/166534?text=Relax' },
+            { title: 'Future Bass', artist: 'Magic Sound', src: 'https://cdn.pixabay.com/audio/2023/05/05/audio_67d74c8c3f.mp3', cover: 'https://placehold.co/200x200/93c5fd/1e40af?text=Future+Bass' }
+        ];
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        // Other state variables (shuffle, repeat) can be added here
+
+        // --- Functions ---
+
+        /**
+         * Generates song cards and places them in the main content grid.
+         */
+        function generateSongGrid() {
+            songGrid.innerHTML = '';
+            songs.forEach((song, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-[#181818] p-4 rounded-lg hover:bg-[#282828] transition-colors duration-300 group relative';
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <img src="${song.cover}" alt="${song.title}" class="w-full h-auto rounded-md shadow-lg">
+                    <h3 class="text-white font-bold mt-4 truncate">${song.title}</h3>
+                    <p class="text-sm truncate">${song.artist}</p>
+                    <button class="card-play-button absolute bottom-20 right-6 bg-[#1db954] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-xl">
+                        <i class="fas fa-play text-xl"></i>
+                    </button>
+                `;
+                songGrid.appendChild(card);
+            });
+        }
+
+        function loadSong(index) {
+            currentSongIndex = index;
+            const song = songs[currentSongIndex];
+            
+            // Update player bar
+            playerSongTitle.textContent = song.title;
+            playerSongArtist.textContent = song.artist;
+            playerAlbumArt.src = song.cover;
+            
+            audio.src = song.src;
+        }
+
+        function playSong() {
+            isPlaying = true;
+            playBtn.querySelector('i.fas').classList.replace('fa-play', 'fa-pause');
+            audio.play().catch(error => console.error("Playback Error:", error));
+        }
+
+        function pauseSong() {
+            isPlaying = false;
+            playBtn.querySelector('i.fas').classList.replace('fa-pause', 'fa-play');
+            audio.pause();
+        }
+        
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+            playSong();
+        }
+
+        function prevSong() {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+            playSong();
+        }
+
+        function updateProgress(e) {
+            const { duration, currentTime } = e.srcElement;
+            if (duration) {
+                progressBar.style.width = `${(currentTime / duration) * 100}%`;
+                durationEl.textContent = formatTime(duration);
+            }
+            currentTimeEl.textContent = formatTime(currentTime);
+        }
+
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            if (audio.duration) {
+                audio.currentTime = (clickX / width) * audio.duration;
+            }
+        }
+        
+        function setVolume() {
+            audio.volume = volumeSlider.value;
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('show');
+        }
+
+        // --- Event Listeners ---
+        songGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('[data-index]');
+            if (card) {
+                const index = parseInt(card.dataset.index, 10);
+                loadSong(index);
+                playSong();
+                if (window.innerWidth < 768) {
+                    sidebar.classList.remove('show');
+                }
+            }
+        });
+
+        playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
+        nextBtn.addEventListener('click', nextSong);
+        prevBtn.addEventListener('click', prevSong);
+        menuBtn.addEventListener('click', toggleSidebar);
+        
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', nextSong);
+        
+        progressContainer.addEventListener('click', setProgress);
+        volumeSlider.addEventListener('input', setVolume);
+
+        // --- Initial Load ---
+        function init() {
+            generateSongGrid();
+            // Load the first song but don't play it automatically
+            loadSong(currentSongIndex);
+        }
+        
+        init();
+    });
+    </script>
+</body>
+</html>
