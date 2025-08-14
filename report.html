@@ -2,77 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Report Lost Item</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Lost Item - Campus Lost & Found</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Hide the default file input button */
+    #itemImage {
+      display: none;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
-  <header class="bg-yellow-500 text-white p-4 text-center text-2xl font-bold">
-    Report Lost Item
+<body class="bg-slate-100 text-slate-800">
+
+  <header class="bg-white shadow-md">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-blue-600">
+        Campus <span class="font-light">Lost & Found</span>
+      </div>
+      <div>
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 px-4 transition-colors">← Back to Home</a>
+      </div>
+    </nav>
   </header>
 
-  <main class="p-6 max-w-xl mx-auto">
-    <form id="lostItemForm" class="bg-white p-6 rounded shadow space-y-4">
-      <div>
-        <label class="block font-medium mb-1">Item Name</label>
-        <input type="text" id="itemName" class="w-full p-2 border border-gray-300 rounded" required />
+  <main class="container mx-auto px-6 py-12">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+      <h1 class="text-3xl font-bold mb-2">Report a Lost Item</h1>
+      <p class="text-slate-500 mb-8">Please fill out the form below with as much detail as possible.</p>
+
+      <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative mb-6" role="alert">
+        <strong class="font-bold">Success! </strong>
+        <span class="block sm:inline">Your report has been submitted. Redirecting you home...</span>
       </div>
-      <div>
-        <label class="block font-medium mb-1">Description</label>
-        <textarea id="itemDesc" class="w-full p-2 border border-gray-300 rounded" required></textarea>
-      </div>
-      <div>
-        <label class="block font-medium mb-1">Location Lost</label>
-        <input type="text" id="itemLocation" class="w-full p-2 border border-gray-300 rounded" required />
-      </div>
-      <div>
-        <label class="block font-medium mb-1">Date Lost</label>
-        <input type="date" id="itemDate" class="w-full p-2 border border-gray-300 rounded" required />
-      </div>
-      <div>
-        <label class="block font-medium mb-1">Upload Image</label>
-        <input type="file" id="itemImage" accept="image/*" class="w-full p-2 border border-gray-300 rounded" />
-      </div>
-      <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded shadow">
-        Submit
-      </button>
-    </form>
+
+      <form id="lostItemForm" class="space-y-6">
+        <div>
+          <label for="itemName" class="block font-semibold mb-2 text-slate-700">Item Name</label>
+          <input type="text" id="itemName" name="itemName" placeholder="e.g., Black Leather Wallet" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" required />
+        </div>
+
+        <div>
+          <label for="itemLocation" class="block font-semibold mb-2 text-slate-700">Last Known Location</label>
+          <input type="text" id="itemLocation" name="itemLocation" placeholder="e.g., Near the main library entrance" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" required />
+        </div>
+
+        <div>
+          <label for="itemDate" class="block font-semibold mb-2 text-slate-700">Date Lost</label>
+          <input type="date" id="itemDate" name="itemDate" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" required />
+        </div>
+        
+        <div>
+          <label for="itemDesc" class="block font-semibold mb-2 text-slate-700">Description</label>
+          <textarea id="itemDesc" name="itemDesc" rows="4" placeholder="Include any distinguishing features, like brand, color, stickers, etc." class="w-full p-3 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" required></textarea>
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-2 text-slate-700">Upload an Image (Optional)</label>
+          <label for="itemImage" class="flex flex-col items-center justify-center w-full h-32 px-4 transition bg-white border-2 border-slate-300 border-dashed rounded-lg appearance-none cursor-pointer hover:border-slate-400 focus:outline-none">
+            <span class="flex items-center space-x-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+              <span class="font-medium text-slate-600">Click to upload or drag and drop</span>
+            </span>
+            <span id="fileName" class="text-sm text-slate-500 mt-1"></span>
+          </label>
+          <input type="file" id="itemImage" accept="image/*" />
+        </div>
+
+        <div class="text-right">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Submit Report
+          </button>
+        </div>
+      </form>
+    </div>
   </main>
 
+  <footer class="bg-slate-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 Campus Lost & Found. All Rights Reserved.</p>
+    </div>
+  </footer>
+
   <script>
-  document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
+    // JS for custom file input to show the selected file's name
+    const fileInput = document.getElementById('itemImage');
+    const fileNameDisplay = document.getElementById('fileName');
+    fileInput.addEventListener('change', () => {
+      fileNameDisplay.textContent = fileInput.files[0] ? fileInput.files[0].name : 'No file chosen';
+    });
 
-    const fileInput = document.getElementById("itemImage");
-    const reader = new FileReader();
+    // JS for form submission
+    document.getElementById('lostItemForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    reader.onload = function () {
-      const base64Image = reader.result;
+      const reader = new FileReader();
 
-      const item = {
-        name: document.getElementById("itemName").value,
-        description: document.getElementById("itemDesc").value,
-        location: document.getElementById("itemLocation").value,
-        date: document.getElementById("itemDate").value,
-        image: base64Image || "", // base64 string
+      reader.onload = function () {
+        const base64Image = reader.result; // This will be null if no file was read
+
+        const item = {
+          name: document.getElementById('itemName').value,
+          description: document.getElementById('itemDesc').value,
+          location: document.getElementById('itemLocation').value,
+          date: document.getElementById('itemDate').value,
+          image: base64Image || "", // base64 string or empty
+        };
+
+        // Determine if it's a lost or found item page
+        const key = window.location.pathname.includes("found") ? "foundItems" : "lostItems";
+        let items = JSON.parse(localStorage.getItem(key)) || [];
+        items.push(item);
+        localStorage.setItem(key, JSON.stringify(items));
+        
+        // Show success message and redirect
+        document.getElementById('lostItemForm').reset();
+        fileNameDisplay.textContent = '';
+        document.getElementById('successMessage').classList.remove('hidden');
+        
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 2500); // Redirect after 2.5 seconds
       };
 
-      const key = window.location.pathname.includes("report") ? "lostItems" : "foundItems";
-      let items = JSON.parse(localStorage.getItem(key)) || [];
-      items.push(item);
-      localStorage.setItem(key, JSON.stringify(items));
-
-      alert(`${key === "lostItems" ? "Lost" : "Found"} item reported successfully!`);
-      window.location.href = "index.html";
-    };
-
-    if (fileInput.files[0]) {
-      reader.readAsDataURL(fileInput.files[0]); // Convert to base64
-    } else {
-      reader.onload(); // No image, just save data
-    }
-  });
-</script>
+      if (fileInput.files.length > 0) {
+        reader.readAsDataURL(fileInput.files[0]); // Convert image to base64
+      } else {
+        reader.onload(); // Trigger onload directly if no file is selected
+      }
+    });
+  </script>
 
 </body>
 </html>
