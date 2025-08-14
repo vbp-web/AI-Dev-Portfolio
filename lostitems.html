@@ -1,36 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lost Items - Campus Portal</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Item Listings - Campus Lost & Found</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Style for the active filter button */
+    .filter-btn-active {
+      background-color: #2563eb; /* bg-blue-600 */
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6">🧳 Lost Items</h1>
-    <div id="items" class="grid gap-6"></div>
-  </div>
+<body class="bg-slate-100 text-slate-800">
+
+  <header class="bg-white shadow-md">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-blue-600">
+        Campus <span class="font-light">Lost & Found</span>
+      </div>
+      <div>
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 px-4 transition-colors">← Back to Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto px-6 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">All Listed Items</h1>
+    <p class="text-slate-500 mb-8">Browse items that have been reported lost or found across campus.</p>
+
+    <div class="flex flex-wrap gap-4 mb-8">
+      <button id="filter-all" class="filter-btn filter-btn-active px-5 py-2 rounded-lg font-semibold transition-colors">All Items</button>
+      <button id="filter-lost" class="filter-btn bg-white hover:bg-slate-200 px-5 py-2 rounded-lg font-semibold transition-colors">Lost Items</button>
+      <button id="filter-found" class="filter-btn bg-white hover:bg-slate-200 px-5 py-2 rounded-lg font-semibold transition-colors">Found Items</button>
+    </div>
+
+    <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      </div>
+    
+    <div id="no-items-message" class="hidden text-center py-16">
+      <h2 class="text-2xl font-semibold text-slate-600">No items found.</h2>
+      <p class="text-slate-400 mt-2">Try adjusting your filters or check back later!</p>
+    </div>
+  </main>
+  
+  <footer class="bg-slate-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 Campus Lost & Found. All Rights Reserved.</p>
+    </div>
+  </footer>
 
   <script>
-    // Fetch lost items from backend
-    fetch('http://localhost:5000/api/items')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('items');
-        data.forEach(item => {
-          container.innerHTML += `
-            <div class="bg-white p-4 rounded shadow">
-              <h2 class="text-xl font-semibold">${item.name}</h2>
-              <p><strong>Type:</strong> ${item.type}</p>
-              <p><strong>Location:</strong> ${item.location}</p>
-              <p><strong>Date:</strong> ${item.date.split("T")[0]}</p>
-              <p><strong>Contact:</strong> ${item.contact}</p>
-              <p>${item.description}</p>
-              ${item.image ? `<img src="${item.image}" class="mt-2 max-h-40">` : ""}
+    document.addEventListener('DOMContentLoaded', () => {
+      const itemsGrid = document.getElementById('items-grid');
+      const noItemsMessage = document.getElementById('no-items-message');
+      
+      // Load items from localStorage
+      const lostItems = (JSON.parse(localStorage.getItem('lostItems')) || []).map(item => ({...item, type: 'Lost'}));
+      const foundItems = (JSON.parse(localStorage.getItem('foundItems')) || []).map(item => ({...item, type: 'Found'}));
+      const allItems = [...lostItems, ...foundItems].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      const renderItems = (items) => {
+        // Clear previous items
+        itemsGrid.innerHTML = ''; 
+
+        if (items.length === 0) {
+          noItemsMessage.classList.remove('hidden');
+          itemsGrid.classList.add('hidden');
+        } else {
+          noItemsMessage.classList.add('hidden');
+          itemsGrid.classList.remove('hidden');
+        }
+
+        let cardsHtml = '';
+        items.forEach(item => {
+          const isLost = item.type === 'Lost';
+          const tagColor = isLost ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800';
+          const buttonText = isLost ? 'I Found This!' : 'Claim Item';
+          
+          cardsHtml += `
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">` : '<div class="w-full h-48 bg-slate-200 flex items-center justify-center text-slate-400">No Image</div>'}
+              <div class="p-6 flex-grow flex flex-col">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-2xl font-bold mb-2">${item.name || 'Untitled Item'}</h3>
+                  <span class="text-xs font-bold ${tagColor} px-2 py-1 rounded-full whitespace-nowrap">${item.type}</span>
+                </div>
+                <div class="flex items-center text-slate-500 text-sm mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                  <span>${item.location || 'No location specified'}</span>
+                </div>
+                <p class="text-slate-600 text-sm flex-grow">${item.description || 'No description provided.'}</p>
+                <div class="mt-4 pt-4 border-t border-slate-200 flex justify-between items-center">
+                  <span class="text-xs text-slate-400">Reported: ${new Date(item.date).toLocaleDateString()}</span>
+                  <a href="#" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 text-sm rounded-lg transition-colors">${buttonText}</a>
+                </div>
+              </div>
             </div>
           `;
         });
+        itemsGrid.innerHTML = cardsHtml;
+      };
+
+      // Filter functionality
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active button style
+          filterButtons.forEach(btn => btn.classList.remove('filter-btn-active', 'bg-blue-600', 'text-white'));
+          button.classList.add('filter-btn-active');
+          
+          let filteredItems = [];
+          if (button.id === 'filter-lost') {
+            filteredItems = allItems.filter(item => item.type === 'Lost');
+          } else if (button.id === 'filter-found') {
+            filteredItems = allItems.filter(item => item.type === 'Found');
+          } else {
+            filteredItems = allItems;
+          }
+          renderItems(filteredItems);
+        });
       });
+
+      // Initial render of all items
+      renderItems(allItems);
+    });
   </script>
+
 </body>
 </html>
