@@ -2,114 +2,238 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All Reported Items</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Listings - Campus Lost & Found</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
-  <header class="bg-blue-600 text-white p-4 text-center text-2xl font-bold">
-    Lost & Found Listings
+<body class="bg-slate-100 text-slate-800">
+
+  <header class="bg-white shadow-md">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-blue-600">
+        Campus <span class="font-light">Lost & Found</span>
+      </div>
+      <div>
+        <a href="index.html" class="text-slate-600 hover:text-blue-600 px-4 transition-colors">← Back to Home</a>
+      </div>
+    </nav>
   </header>
 
- <main class="p-6">
-  <!-- Search Bar -->
-  <div class="mb-6 max-w-xl mx-auto">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search by item name or location..."
-      class="w-full p-3 border border-gray-300 rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
-    />
+  <main class="container mx-auto px-6 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4">Manage Listings</h1>
+    <p class="text-slate-500 mb-8">Search, edit, or delete item reports from this dashboard.</p>
+
+    <div class="mb-8 max-w-xl mx-auto">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg class="h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <input type="text" id="searchInput" placeholder="Search by item name, location, or description..." class="w-full p-3 pl-10 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
+      </div>
+    </div>
+
+    <div id="itemsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      </div>
+  </main>
+
+  <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md m-4">
+      <h2 class="text-2xl font-bold mb-6">Edit Item</h2>
+      <form id="editForm" class="space-y-4">
+        <div>
+          <label for="editItemName" class="block font-semibold mb-1 text-slate-700">Item Name</label>
+          <input type="text" id="editItemName" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" required>
+        </div>
+        <div>
+          <label for="editItemLocation" class="block font-semibold mb-1 text-slate-700">Location</label>
+          <input type="text" id="editItemLocation" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" required>
+        </div>
+        <div>
+          <label for="editItemDate" class="block font-semibold mb-1 text-slate-700">Date</label>
+          <input type="date" id="editItemDate" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" required>
+        </div>
+        <div>
+          <label for="editItemDesc" class="block font-semibold mb-1 text-slate-700">Description</label>
+          <textarea id="editItemDesc" rows="3" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-lg" required></textarea>
+        </div>
+        <div class="flex justify-end gap-4 pt-4">
+          <button type="button" onclick="closeEditModal()" class="px-6 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg font-semibold">Cancel</button>
+          <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold">Save Changes</button>
+        </div>
+      </form>
+    </div>
   </div>
 
-  <!-- Items Container -->
-  <div id="itemsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-</main>
-
-
- <script>
-  let lostItems = JSON.parse(localStorage.getItem("lostItems")) || [];
-  let foundItems = JSON.parse(localStorage.getItem("foundItems")) || [];
-
-  const itemsContainer = document.getElementById("itemsContainer");
-  const searchInput = document.getElementById("searchInput");
-
-  function createItemCard(item, type, index) {
-    const card = document.createElement("div");
-    card.className = "bg-white p-4 rounded shadow relative";
-
-    const titleColor = type === "Lost" ? "text-yellow-600" : "text-green-600";
-
-    card.innerHTML = `
-      <h3 class="text-xl font-bold ${titleColor}">${type} Item: ${item.name}</h3>
-      <p class="text-sm text-gray-600 mt-1">${item.date} at ${item.location}</p>
-      <p class="mt-2 text-gray-700">${item.description}</p>
-      ${item.image ? `<img src="${item.image}" alt="Item Image" class="mt-3 rounded border w-full h-48 object-cover"/>` : ''}
-      <div class="flex justify-between mt-4">
-        <button onclick="editItem('${type}', ${index})" class="text-blue-600 hover:text-blue-800 font-medium">✎ Edit</button>
-        <button onclick="deleteItem('${type}', ${index})" class="text-red-600 hover:text-red-800 font-medium">✕ Delete</button>
+  <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+      <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm m-4 text-center">
+          <h2 class="text-xl font-bold mb-4">Are you sure?</h2>
+          <p class="text-slate-600 mb-6">This action cannot be undone. The item report will be permanently deleted.</p>
+          <div class="flex justify-center gap-4">
+              <button type="button" onclick="closeDeleteModal()" class="px-6 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg font-semibold">Cancel</button>
+              <button id="confirmDeleteBtn" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold">Delete</button>
+          </div>
       </div>
-      <div class="mt-3 text-xs text-gray-400 italic">${type} Report</div>
-    `;
-
-    itemsContainer.appendChild(card);
-  }
-
-  function renderItems(filter = "") {
-    itemsContainer.innerHTML = "";
-
-    const allItems = [
-      ...lostItems.map((item, i) => ({ ...item, type: "Lost", index: i })),
-      ...foundItems.map((item, i) => ({ ...item, type: "Found", index: i }))
-    ];
-
-    const filteredItems = allItems.filter(item =>
-      item.name.toLowerCase().includes(filter) ||
-      item.location.toLowerCase().includes(filter)
-    );
-
-    filteredItems.forEach(item => createItemCard(item, item.type, item.index));
-  }
-
-  function deleteItem(type, index) {
-    if (type === "Lost") {
-      lostItems.splice(index, 1);
-      localStorage.setItem("lostItems", JSON.stringify(lostItems));
-    } else {
-      foundItems.splice(index, 1);
-      localStorage.setItem("foundItems", JSON.stringify(foundItems));
-    }
-    renderItems(searchInput.value.trim().toLowerCase());
-  }
-
-  function editItem(type, index) {
-    const list = type === "Lost" ? lostItems : foundItems;
-    const item = list[index];
-    const name = prompt("Update Item Name:", item.name);
-    const desc = prompt("Update Description:", item.description);
-    const location = prompt("Update Location:", item.location);
-    const date = prompt("Update Date:", item.date);
-
-    if (name && desc && location && date) {
-      list[index] = { ...item, name, description: desc, location, date };
-      if (type === "Lost") {
-        localStorage.setItem("lostItems", JSON.stringify(list));
-      } else {
-        localStorage.setItem("foundItems", JSON.stringify(list));
-      }
-      renderItems(searchInput.value.trim().toLowerCase());
-    }
-  }
-
-  renderItems();
-
-  searchInput.addEventListener("input", (e) => {
-    const filter = e.target.value.trim().toLowerCase();
-    renderItems(filter);
-  });
-</script>
+  </div>
 
 
+  <footer class="bg-slate-800 text-white py-6 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 Campus Lost & Found. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const itemsContainer = document.getElementById('itemsContainer');
+      const searchInput = document.getElementById('searchInput');
+      const editModal = document.getElementById('editModal');
+      const editForm = document.getElementById('editForm');
+      const deleteModal = document.getElementById('deleteModal');
+      const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+      let currentItemForEdit = null;
+      let currentItemForDelete = null;
+
+      const getItems = () => ({
+        lost: JSON.parse(localStorage.getItem('lostItems')) || [],
+        found: JSON.parse(localStorage.getItem('foundItems')) || []
+      });
+
+      const saveItems = (type, items) => {
+        localStorage.setItem(`${type}Items`, JSON.stringify(items));
+      };
+
+      const renderItems = (filter = "") => {
+        itemsContainer.innerHTML = '';
+        const { lost, found } = getItems();
+
+        const allItems = [
+          ...lost.map((item, index) => ({ ...item, type: 'Lost', index })),
+          ...found.map((item, index) => ({ ...item, type: 'Found', index }))
+        ];
+
+        const filteredItems = allItems.filter(item =>
+          item.name.toLowerCase().includes(filter) ||
+          item.location.toLowerCase().includes(filter) ||
+          item.description.toLowerCase().includes(filter)
+        ).sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        if (filteredItems.length === 0) {
+            itemsContainer.innerHTML = `<p class="text-slate-500 text-center col-span-full">No items match your search.</p>`;
+            return;
+        }
+
+        filteredItems.forEach(item => {
+          const card = document.createElement('div');
+          card.className = "bg-white rounded-xl shadow-lg overflow-hidden flex flex-col";
+          const isLost = item.type === 'Lost';
+          const tagColor = isLost ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800';
+
+          card.innerHTML = `
+            ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover">` : '<div class="w-full h-48 bg-slate-200 flex items-center justify-center text-slate-400">No Image</div>'}
+            <div class="p-6 flex-grow flex flex-col">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold">${item.name}</h3>
+                <span class="text-xs font-bold ${tagColor} px-2 py-1 rounded-full whitespace-nowrap">${item.type}</span>
+              </div>
+              <p class="text-slate-600 text-sm">${item.description}</p>
+              <div class="flex-grow"></div>
+              <div class="mt-4 pt-4 border-t border-slate-200 flex justify-between items-center text-sm">
+                <div class="text-slate-500">
+                  <p>${item.location}</p>
+                  <p>${new Date(item.date).toLocaleDateString()}</p>
+                </div>
+                <div class="flex gap-4">
+                  <button class="edit-btn text-slate-500 hover:text-blue-600 transition-colors" title="Edit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z"></path></svg>
+                  </button>
+                  <button class="delete-btn text-slate-500 hover:text-red-600 transition-colors" title="Delete">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          card.querySelector('.edit-btn').addEventListener('click', () => openEditModal(item.type, item.index));
+          card.querySelector('.delete-btn').addEventListener('click', () => openDeleteModal(item.type, item.index));
+          itemsContainer.appendChild(card);
+        });
+      };
+
+      // --- Edit Modal Logic ---
+      window.openEditModal = (type, index) => {
+        const items = getItems()[type.toLowerCase()];
+        currentItemForEdit = { type, index, item: items[index] };
+        
+        document.getElementById('editItemName').value = currentItemForEdit.item.name;
+        document.getElementById('editItemLocation').value = currentItemForEdit.item.location;
+        document.getElementById('editItemDate').value = currentItemForEdit.item.date;
+        document.getElementById('editItemDesc').value = currentItemForEdit.item.description;
+
+        editModal.classList.remove('hidden');
+      };
+
+      window.closeEditModal = () => {
+        editModal.classList.add('hidden');
+        currentItemForEdit = null;
+      };
+
+      editForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const { type, index } = currentItemForEdit;
+        let items = getItems()[type.toLowerCase()];
+
+        items[index] = {
+          ...items[index],
+          name: document.getElementById('editItemName').value,
+          location: document.getElementById('editItemLocation').value,
+          date: document.getElementById('editItemDate').value,
+          description: document.getElementById('editItemDesc').value,
+        };
+
+        saveItems(type.toLowerCase(), items);
+        renderItems(searchInput.value.trim().toLowerCase());
+        closeEditModal();
+      });
+
+      // --- Delete Modal Logic ---
+      window.openDeleteModal = (type, index) => {
+          currentItemForDelete = { type, index };
+          deleteModal.classList.remove('hidden');
+      };
+
+      window.closeDeleteModal = () => {
+          deleteModal.classList.add('hidden');
+          currentItemForDelete = null;
+      };
+
+      confirmDeleteBtn.addEventListener('click', () => {
+          const { type, index } = currentItemForDelete;
+          let items = getItems()[type.toLowerCase()];
+          items.splice(index, 1);
+          saveItems(type.toLowerCase(), items);
+          renderItems(searchInput.value.trim().toLowerCase());
+          closeDeleteModal();
+      });
+
+      // --- Initial Setup ---
+      searchInput.addEventListener("input", (e) => {
+        renderItems(e.target.value.trim().toLowerCase());
+      });
+
+      renderItems();
+    });
+  </script>
 
 </body>
 </html>
